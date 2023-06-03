@@ -1,0 +1,13 @@
+SET(SOURCES screens/ui_scrnMain.c
+    screens/ui_scrnManu.c
+    screens/ui_scrWifi.c
+    ui.c
+    ui_helpers.c
+    images/ui_img_hamburger_png.c
+    images/ui_img_wificon_png.c
+    images/ui_img_canbus_png.c
+    fonts/ui_font_seg7Big.c
+    fonts/ui_font_seg7_18.c
+    fonts/ui_font_seg7_22pt.c)
+
+add_library(ui ${SOURCES})

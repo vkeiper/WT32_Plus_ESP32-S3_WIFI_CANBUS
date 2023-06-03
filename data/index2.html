@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"  "HTTP/1.1 200 OK\r\n"  "CACHE-CONTROL: max-age=86400\r\n">
+<title>eLink2 Home</title>
+  
+<!-- JQuery Import -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- local stored bootstrap and jquery files-->
+<link rel="stylesheet" href="/css/bootstrap-theme.min.css" />  
+<link rel="stylesheet" href="/css/bootstrap.min.css" /> 
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/popper.min1.14.7.js"></script> 
+<script src="/js/bootstrap-4.3.1.min.js"></script>
+
+<!-- internet stored bootstrap & js files -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous"> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>  -->
+
+<script type="text/javascript">
+  
+  window.onload = function setUrls() {
+  /*
+        d = new Date();
+        linkHome = document.getElementById("myHomeUrl");
+        linkHome.href = '/index.html';
+        
+        linkDebug = document.getElementById("myDebugUrl"); 
+        linkDebug.href = '/index2.html';    
+  */
+        setTimeout(refreshValues, 1250);
+  };
+  
+  function refreshValues() {
+    $.get("/api/getsta/", function(res) {
+      	  
+      var obj = res;// says no longer need to convert to Json since data type is labeled Json res is already Json Obj
+	  document.getElementById("panel_1_head").innerHTML = obj.panel_1.headerTxt;
+      document.getElementById("panel_2_head").innerHTML = obj.panel_2.headerTxt;
+      document.getElementById("panel_3_head").innerHTML = obj.panel_3.headerTxt;
+      document.getElementById("panel_4_head").innerHTML = obj.panel_4.headerTxt;
+      document.getElementById("sta_outonoff").innerHTML = "Output " + obj.panel_1.values[2];
+
+      if(obj.panel_1.values[2] == "OFF")
+         onOff = "Off ";
+      else
+         onOff = "On ";
+
+      document.getElementById("sta_outonoff").innerHTML = obj.panel_1.units[2] + " " + onOff + " " + obj.panel_1.values[0] + " " + obj.panel_1.units[0] +" " + obj.panel_1.values[1] + " " + obj.panel_1.units[1];
+
+      buildStr = "";
+      for(i = 0; i < obj.panel_2.values.length; i++){
+         buildStr = buildStr + (i+1) + ") " + obj.panel_2.values[i] + " " + obj.panel_2.units[i] + " ";
+      }
+      document.getElementById("sta_refelec").innerHTML = buildStr;
+      colIndex = ["r2c1", "r2c2", "r2c3", "r2c4", "r2c5", "r2c6"];
+
+      for(i = 0; i < obj.panel_3.values.length; i++){
+         document.getElementById(colIndex[i]).innerHTML = obj.panel_3.values[i] + " " + obj.panel_3.units[i] + " ";
+      }
+      
+	  document.getElementById("sta_faults").innerHTML = obj.panel_4.values;
+	  if(obj.panel_4.values.includes('PASSING'))
+        $("#sta_faults").removeClass("alert-danger").addClass("alert-success"); 
+      else
+        $("#sta_faults").removeClass("alert-success").addClass("alert-danger");
+      
+      $("#sta_faults").find("b").html(res);
+      
+   });//end get status req
+        
+   setTimeout(refreshValues, 1250); 
+} //end function refreshValues()
+
+ /*function to loop hrough files in 'inc' folder and add html from them into this html doc*/
+ $(function () {
+  var includes = $('[data-include]')
+  $.each(includes, function () {
+    var file = 'inc/' + $(this).data('include') + '.html'
+    $(this).load(file)
+  })
+})
+  
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+</head>
+<body>
+  
+  
+ <div data-include="navbar"></div>
+<div class="container">	  
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading ">&nbsp &nbsp Control</div>
+        <div class="panel-body">
+        <div class="row justify-content-center" id="panel1"> <!-- ON\OFF & CH+ Button Row Tag -->
+           <button type="button" class="btn btn-default btn-lg led" id="onoff">ON\OFF</button> &nbsp &nbsp &nbsp
+           <select name="psuSel" id="psuSel">
+            <option value="psu1">PSU 1</option>
+            <option value="psu2">PSU 2</option>
+            <option value="psu3">PSU 3</option>
+            <option value="psu4">PSU 4</option>
+          </select>  &nbsp &nbsp &nbsp
+           <button type="button" class="btn btn-default btn-lg led" id="submit">Submit</button>
+        </div>	
+        </div> <!-- END ON\OFF & CH+ Button Row Tag -->
+        <div class="row  justify-content-center"> <!-- Set points Form Row Tag -->
+        
+      </div>
+      </div>
+	  <div class="panel panel-default"> 
+        <div class="panel-heading "></div>
+        <div id="panel_1_head" class="panel-heading cell">System Output Status</div>
+        
+        <div class="panel_1">
+           <div id="sta_outonoff" class="alert alert-success" role="alert"><b>Output ON   DC: 35.78V </b></div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div id ="panel_2_head" class="panel-heading cell">System Reference Electrodes</div>
+        <div class="panel-body">
+           <div id="sta_refelec" class="alert alert-primary" role="alert"><b> did it work </b></div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div id="panel_3_head"class="panel-heading cell">System Current Monitors</div>
+        <div class="panel-body">
+			<div id="sta_curr_a" class="alert alert-primary" role="alert">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col">1)</div>
+						<div class="col">2)</div>
+						<div class="col">3)</div>
+						<div class="col">4)</div>
+						<div class="col">5)</div>
+						<div class="col">6)</div>
+					</div>             
+					<div class="row">  
+						<div id="r2c1" class="col">p</div>
+						<div id="r2c2" class="col">p</div>
+						<div id="r2c3" class="col">p</div>
+						<div id="r2c4" class="col">p</div>
+						<div id="r2c5" class="col">p</div>
+						<div id="r2c6" class="col">p</div>
+					</div>
+				</div>
+			</div>
+		</div>
+      <div class="panel panel-default"> 
+        <div class="panel-heading "></div>
+        <div id="panel_4_head" class="panel-heading cell">System Fault Status</div>
+        
+        <div class="panel-body">
+           <!-- <div id="sta_faults" class="alert alert-success" role="alert"><b>Passing No Faults </b></div> -->
+		   <div id="sta_faults" class="alert alert-danger" role="alert"><b> Over-Protection </b></div>
+        </div>
+      </div>
+          <p style="text-align:left;"> Astrodyne TDI Inc. 2023 v1.0.1 230511_1550 Vince Keiper&nbsp &nbsp</p>
+      </div>	
+  </div><!-- PANEL GROUP -->
+</div><!-- container -->
+</body>
+</html>

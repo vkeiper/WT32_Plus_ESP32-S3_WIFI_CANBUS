@@ -1,0 +1,146 @@
+{
+  "panel_0": {
+    "headerTxt": "Control",
+    "values": "1",
+    "units": "Address",
+    "limits": [
+      1,
+      4
+    ],
+    "colors": [
+      "GREEN",
+      "RED",
+      "GREY"
+    ],
+    "fontsz": 10
+  },
+  "panel_1": {
+    "headerTxt": "Output Status",
+    "values": [
+      30.5,
+      36.5
+    ],
+    "units": [
+      "Volts DC",
+      "Amps DC"
+    ],
+    "limits": [
+      [
+        26.5,
+        36.6
+      ],
+      [
+        0.0,
+        100.0
+      ]
+    ],
+    "colors": [
+      "YELLOW",
+      "GREEN",
+      "RED"
+    ],
+    "fontsz": 10
+  },
+  "panel_2": {
+    "headerTxt": "System Reference Electrodes",
+    "values": [
+      200.1,
+      150.2,
+      142.01,
+      202.2
+    ],
+    "units": [
+      "mV",
+      "mV",
+      "mV",
+      "mV"
+    ],
+    "limits": [
+      [
+        -200.2
+      ],
+      [
+        -201,
+        201
+      ],
+      [
+        -202,
+        202
+      ],
+      [
+        -203,
+        203
+      ]
+    ],
+    "colors": [
+      "GREY",
+      "BLUE",
+      "RED"
+    ],
+    "fontsz": 10
+  },
+  "panel_3": {
+    "headerTxt": "Anode Current Monitors",
+    "values": [
+      100,
+      100.1,
+      100.2,
+      100.3,
+      100.4,
+      100.5
+    ],
+    "units": [
+      "A",
+      "A",
+      "A",
+      "A"
+    ],
+    "limits": [
+      [
+        80,
+        130
+      ],
+      [
+        80.1,
+        130.1
+      ],
+      [
+        80.2,
+        130.2
+      ],
+      [
+        80.3,
+        130.3
+      ],
+      [
+        80.4,
+        130.4
+      ],
+      [
+        80.5,
+        130.5
+      ]
+    ],
+    "colors": [
+      "GREY",
+      "BLUE",
+      "RED"
+    ],
+    "fontsz": 10
+  },
+  "panel_4": {
+    "headerTxt": "Assert Faults",
+    "values": "PASSING",
+    "units": "NA",
+    "limits": [
+      0,
+      0
+    ],
+    "colors": [
+      "YELLOW",
+      "GREEN",
+      "RED"
+    ],
+    "fontsz": 10
+  }
+}
