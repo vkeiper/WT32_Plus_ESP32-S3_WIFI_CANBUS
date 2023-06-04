@@ -6,11 +6,14 @@
 #include <jsonProcessor.h>
 #include "wifiserver.h"
 #include "wifimgr.h"
+#include <ESPmDNS.h>
+#include <Update.h>
+#include "otawebpages.h"
 
 #define USE_WIFI_SERVER (1)
 
 #if USE_WIFI_SERVER
-
+void handleUpload(AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final);
 AsyncWebServer server(80);
  
 const char* PARAM_MESSAGE1 = "PSU_CHAN";//psu channel, aka PSU CANbus node addressbeing selected
@@ -116,9 +119,17 @@ void doSimpleWiFiServerTask(void *pvParameters){
 
 void doWiFiServerTask(void *pvParameters){
       
-  Serial.println("Wifi Server Task Running");
+  Serial.println("Wifi Server Task Starting");
   updateFooterPanel(lv_palette_main(LV_PALETTE_GREEN), "WiFi Server Running");        
   Serial.println(WiFi.localIP());
+
+/*use mdns for host name resolution*/
+  if (!MDNS.begin(local_host)) { //http://el2wifilcd.local
+    Serial.println("Error setting up MDNS responder!");
+    delay(1000);
+  }else{
+    Serial.println("mDNS responder started");
+  }
 
   if(!SPIFFS.begin()){
      Serial.println("An Error has occurred while mounting SPIFFS");
@@ -277,6 +288,50 @@ void doWiFiServerTask(void *pvParameters){
       request->send(response);
   });
   
+  /*return index page which is stored in otaloginIndex */
+  server.on("/otaindex.html", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(200, "text/html", otaloginIndex);
+  });
+  
+  /*return the otaserverIndex page which is stored in 'otaserverIndex'*/
+  server.on("/otasrvrIndex.html", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(200, "text/html", otaserverIndex);
+  });
+
+  /*handling uploading firmware file */
+  server.on("/update", HTTP_POST, [](AsyncWebServerRequest *request){ 
+    request->send(200, "text/plain", (Update.hasError()) ? "FAIL" : "OK");
+    ESP.restart();
+  }, handleUpload);
+
+
+ 
+  //server.onFileUpload()
+  /*handling uploading firmware file */
+  // server.on("/update", HTTP_POST, []() {
+  //   server.sendHeader("Connection", "close");
+  //   server.send(200, "text/plain", (Update.hasError()) ? "FAIL" : "OK");
+  //   ESP.restart();
+  // }, []() {
+  //   HTTPUpload& upload = server.upload();
+  //   if (upload.status == UPLOAD_FILE_START) {
+  //     Serial.printf("Update: %s\n", upload.filename.c_str());
+  //     if (!Update.begin(UPDATE_SIZE_UNKNOWN)) { //start with max available size
+  //       Update.printError(Serial);
+  //     }
+  //   } else if (upload.status == UPLOAD_FILE_WRITE) {
+  //     /* flashing firmware to ESP*/
+  //     if (Update.write(upload.buf, upload.currentSize) != upload.currentSize) {
+  //       Update.printError(Serial);
+  //     }
+  //   } else if (upload.status == UPLOAD_FILE_END) {
+  //     if (Update.end(true)) { //true to set the size to the current progress
+  //       Serial.printf("Update Success: %u\nRebooting...\n", upload.totalSize);
+  //     } else {
+  //       Update.printError(Serial);
+  //     }
+  //   }
+  // });
 
  
   //server.onNotFound(notFound);
@@ -315,5 +370,56 @@ void doWiFiServerTask(void *pvParameters){
     
 }
 
+// handles uploads to the filserver
+void handleUpload(AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final) {
+  const char* FILESIZE_HEADER{"FileSize"};
+  static int filesize, fileleft;
 
+  filesize = request->header(FILESIZE_HEADER).toInt();
+  // make sure authenticated before allowing upload
+  //if (checkUserWebAuth(request)) {
+    String logmessage = "Client:" + request->client()->remoteIP().toString() + " " + request->url();
+    Serial.println(logmessage);
+
+    if (!index) {
+      logmessage = "Upload Start: " + String(filename);
+      // open the file on first call and store the file handle in the request object
+      Serial.println(logmessage);
+     
+      if (!Update.begin(UPDATE_SIZE_UNKNOWN)) { //start with max available size
+        Update.printError(Serial);
+      }
+    }
+
+    if (len) {
+      if(index != 0 && filesize != 0){
+        fileleft = index/filesize;
+      }
+      // stream the incoming chunk to the opened file
+      request->_tempFile.write(data, len);
+      /* flashing firmware to ESP*/
+      if (Update.write(data, len) != len) {
+        Update.printError(Serial);
+      }
+      logmessage = "Writing file: " + String(filename) + " index=" + String(index) + " len=" + String(len) + " , Written: " + String(fileleft);
+      Serial.println(logmessage);
+    }
+
+    if (final) {
+      logmessage = "Upload Complete: " + String(filename) + ",size: " + String(index + len);
+      // close the file handle as the upload is now done
+      //request->_tempFile.close();
+      Serial.println(logmessage);
+      if (Update.end(true)) { //true to set the size to the current progress
+        Serial.printf("Update Success: %u\nRebooting...\n", filesize );
+      } else {
+        Update.printError(Serial);
+      }
+      request->redirect("/");
+    }
+  //} else {
+  //  Serial.println("Auth: Failed");
+  //  return request->requestAuthentication();
+  //}
+}
 #endif

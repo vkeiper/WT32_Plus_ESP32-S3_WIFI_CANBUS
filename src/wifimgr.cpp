@@ -2,10 +2,7 @@
 #include "SPIFFS.h"
 #include "WiFi.h"
 #include <ESP32Ping.h>
-//#include <lvgl.h>
-//#include <Arduino.h>
 #include "wifiserver.h"
-//#include <ui.h>
 #include "wifimgr.h"
 
 
@@ -27,6 +24,7 @@ const char* password = "vin31NAT91";
 String ssidNameStr = "eLink2 WiFi LCD";
 String passwordStr = "1234";
 const char* remote_host = "192.168.68.1";
+const char* local_host = "el2wifilcd";
 unsigned long timeout = 10000; // 10sec
 int pingCount = 2; 
 
