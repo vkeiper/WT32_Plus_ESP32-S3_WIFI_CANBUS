@@ -7,7 +7,7 @@ const char* otaloginIndex =
     "<table width='20%' bgcolor='A09F9F' align='center'>"
         "<tr>"
             "<td colspan=2>"
-                "<center><font size=4><b>Elink 2 WiFI LCD Login Page 1404</b></font></center>"
+                "<center><font size=4><b>Elink 2 WiFI LCD Login Page</b></font></center>"
                 "<br>"
             "</td>"
             "<br>"
