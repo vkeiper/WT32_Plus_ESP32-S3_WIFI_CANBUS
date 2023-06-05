@@ -3,5 +3,7 @@
 
 extern const char* otaloginIndex;
 extern const char* otaserverIndex;
+extern const char* otaspiffsloginIndex;
+extern const char* otaspiffsserverIndex;
 
 #endif
