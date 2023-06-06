@@ -138,6 +138,7 @@ extern lv_obj_t * ui____initial_actions0;
 LV_IMG_DECLARE(ui_img_hamburger_png);    // assets\Hamburger.png
 LV_IMG_DECLARE(ui_img_wificon_png);    // assets\Wificon.png
 LV_IMG_DECLARE(ui_img_canbus_png);    // assets\canbus.png
+LV_IMG_DECLARE(ui_img_wificon2_png);    // assets\Wificon2.png
 
 LV_FONT_DECLARE(ui_font_seg7Big);
 LV_FONT_DECLARE(ui_font_seg7_18);
