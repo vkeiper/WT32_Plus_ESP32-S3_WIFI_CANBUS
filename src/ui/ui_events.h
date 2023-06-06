@@ -16,7 +16,6 @@ void tglOutput(lv_event_t * e);
 void connectWifi(lv_event_t * e);
 void nodeSelect(lv_event_t * e);
 void chngScrn(lv_event_t * e);
-void openKeyboard(lv_event_t * e);
 
 #ifdef __cplusplus
 } /*extern "C"*/

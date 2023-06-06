@@ -72,8 +72,8 @@ lv_obj_t * ui_lblConnect;
 void ui_event_btnWifiCancel(lv_event_t * e);
 lv_obj_t * ui_btnWifiCancel;
 lv_obj_t * ui_lblWifiCancel;
-void ui_event_Keyboard2(lv_event_t * e);
-lv_obj_t * ui_Keyboard2;
+void ui_event_kbWifi(lv_event_t * e);
+lv_obj_t * ui_kbWifi;
 void ui_event_btnKbSubmit(lv_event_t * e);
 lv_obj_t * ui_btnKbSubmit;
 void ui_event_btnKbClose(lv_event_t * e);
@@ -82,45 +82,57 @@ lv_obj_t * ui_btnKbClose;
 // SCREEN: ui_scrnManu
 void ui_scrnManu_screen_init(void);
 lv_obj_t * ui_scrnManu;
-lv_obj_t * ui_pnlHdr1;
+lv_obj_t * ui_pnlHdrManual;
 lv_obj_t * ui_lblHdr1;
 void ui_event_ddNode1(lv_event_t * e);
 lv_obj_t * ui_ddNode1;
 void ui_event_ddMenu1(lv_event_t * e);
 lv_obj_t * ui_ddMenu1;
-lv_obj_t * ui_pnlSre2;
-lv_obj_t * ui_pnlSreHdr2;
-lv_obj_t * ui_lblSre2;
-lv_obj_t * ui_lblSreCl11;
-lv_obj_t * ui_lblSreCl12;
-lv_obj_t * ui_lblSreCl13;
-lv_obj_t * ui_lblSreCl14;
-lv_obj_t * ui_lblSreCl1D2;
-lv_obj_t * ui_lblSreCl2D2;
-lv_obj_t * ui_lblSreCl3D2;
-lv_obj_t * ui_lblSreCl4D4;
-lv_obj_t * ui_lblSreCl15;
-lv_obj_t * ui_lblSreCl16;
-lv_obj_t * ui_lblSreCl4D5;
-lv_obj_t * ui_lblSreCl4D6;
-lv_obj_t * ui_pnlSre3;
-lv_obj_t * ui_pnlSreHdr3;
-lv_obj_t * ui_lblSre3;
-
-// SCREEN: ui_scrWifi
-void ui_scrWifi_screen_init(void);
-lv_obj_t * ui_scrWifi;
-lv_obj_t * ui_Panel3;
-lv_obj_t * ui_Dropdown2;
-void ui_event_TextArea2(lv_event_t * e);
-lv_obj_t * ui_TextArea2;
-lv_obj_t * ui_Button1;
-lv_obj_t * ui_Label3;
-lv_obj_t * ui_Button3;
-lv_obj_t * ui_Label5;
-lv_obj_t * ui_Spinner1;
+lv_obj_t * ui_pnlMsp;
+lv_obj_t * ui_pnlMspHdr;
+lv_obj_t * ui_lblMspHdr;
+lv_obj_t * ui_pnlMspVolts;
+lv_obj_t * ui_lblMspVolts;
+lv_obj_t * ui_txtMspVolts;
+lv_obj_t * ui_pnlMspAmps;
+lv_obj_t * ui_lblMspAmps;
+lv_obj_t * ui_txtMspAmps;
+lv_obj_t * ui_lblMspAuto;
+lv_obj_t * ui_lblMspModeSel;
+lv_obj_t * ui_btnMspWrite;
+lv_obj_t * ui_lblMspWriteBtn;
+lv_obj_t * ui_btnMspManual;
+lv_obj_t * ui_btnMspAuto;
+lv_obj_t * ui_lblMspManualbtn;
+lv_obj_t * ui_lblMspAutobtn;
+lv_obj_t * ui_pnlRcManual;
+lv_obj_t * ui_pnlRcManualHdr;
+lv_obj_t * ui_lblRcManualHdr;
+lv_obj_t * ui_lblRcm1;
+lv_obj_t * ui_lblRcm2;
+lv_obj_t * ui_lblRcm3;
+lv_obj_t * ui_lblRcm4;
+lv_obj_t * ui_lblRcm5;
+lv_obj_t * ui_lblRcm6;
+lv_obj_t * ui_lblRcmD1;
+lv_obj_t * ui_lblRcmD2;
+lv_obj_t * ui_lblRcmD3;
+lv_obj_t * ui_lblRcmD4;
+lv_obj_t * ui_lblRcmD5;
+lv_obj_t * ui_lblRcmD6;
+lv_obj_t * ui_pnlRcMBrdr1;
+lv_obj_t * ui_pnlRcMBrdr2;
+lv_obj_t * ui_pnlRcMBrdr3;
+lv_obj_t * ui_pnlRec;
+lv_obj_t * ui_lblRecHdr;
+lv_obj_t * ui_lblMspHdr1;
+lv_obj_t * ui_chkRC1;
+lv_obj_t * ui_chkRC2;
+lv_obj_t * ui_chkRC3;
+lv_obj_t * ui_chkRC4;
+lv_obj_t * ui_chkRC3Shaft;
+lv_obj_t * ui_chkRC4Shaft;
 lv_obj_t * ui____initial_actions0;
-const lv_img_dsc_t * ui_imgset_wificon[1] = {&ui_img_wificon2_png};
 
 ///////////////////// TEST LVGL SETTINGS ////////////////////
 #if LV_COLOR_DEPTH != 16
@@ -171,7 +183,7 @@ void ui_event_txtaPass(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_basic_set_property(ui_Keyboard2, _UI_BASIC_PROPERTY_POSITION_Y,  0);
+        _ui_basic_set_property(ui_kbWifi, _UI_BASIC_PROPERTY_POSITION_Y,  0);
     }
 }
 void ui_event_btnWifiConnect(lv_event_t * e)
@@ -190,12 +202,12 @@ void ui_event_btnWifiCancel(lv_event_t * e)
         _ui_basic_set_property(ui_pnlWifi, _UI_BASIC_PROPERTY_POSITION_X,  -480);
     }
 }
-void ui_event_Keyboard2(lv_event_t * e)
+void ui_event_kbWifi(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_DEFOCUSED) {
-        _ui_basic_set_property(ui_Keyboard2, _UI_BASIC_PROPERTY_POSITION_Y,  160);
+        _ui_basic_set_property(ui_kbWifi, _UI_BASIC_PROPERTY_POSITION_Y,  160);
     }
 }
 void ui_event_btnKbSubmit(lv_event_t * e)
@@ -203,7 +215,7 @@ void ui_event_btnKbSubmit(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_basic_set_property(ui_Keyboard2, _UI_BASIC_PROPERTY_POSITION_Y,  160);
+        _ui_basic_set_property(ui_kbWifi, _UI_BASIC_PROPERTY_POSITION_Y,  160);
     }
 }
 void ui_event_btnKbClose(lv_event_t * e)
@@ -211,7 +223,7 @@ void ui_event_btnKbClose(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_basic_set_property(ui_Keyboard2, _UI_BASIC_PROPERTY_POSITION_Y,  160);
+        _ui_basic_set_property(ui_kbWifi, _UI_BASIC_PROPERTY_POSITION_Y,  160);
     }
 }
 void ui_event_ddNode1(lv_event_t * e)
@@ -230,14 +242,6 @@ void ui_event_ddMenu1(lv_event_t * e)
         chngScrn(e);
     }
 }
-void ui_event_TextArea2(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        openKeyboard(e);
-    }
-}
 
 ///////////////////// SCREENS ////////////////////
 
@@ -249,7 +253,6 @@ void ui_init(void)
     lv_disp_set_theme(dispp, theme);
     ui_scrnMain_screen_init();
     ui_scrnManu_screen_init();
-    ui_scrWifi_screen_init();
     ui____initial_actions0 = lv_obj_create(NULL);
     lv_disp_load_scr(ui_scrnMain);
 }

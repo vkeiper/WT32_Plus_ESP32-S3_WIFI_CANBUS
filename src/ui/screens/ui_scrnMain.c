@@ -653,14 +653,14 @@ void ui_scrnMain_screen_init(void)
     lv_obj_set_align(ui_lblWifiCancel, LV_ALIGN_CENTER);
     lv_label_set_text(ui_lblWifiCancel, "Close");
 
-    ui_Keyboard2 = lv_keyboard_create(ui_scrnMain);
-    lv_obj_set_width(ui_Keyboard2, lv_pct(100));
-    lv_obj_set_height(ui_Keyboard2, lv_pct(50));
-    lv_obj_set_x(ui_Keyboard2, 0);
-    lv_obj_set_y(ui_Keyboard2, 160);
-    lv_obj_set_align(ui_Keyboard2, LV_ALIGN_BOTTOM_MID);
+    ui_kbWifi = lv_keyboard_create(ui_scrnMain);
+    lv_obj_set_width(ui_kbWifi, lv_pct(100));
+    lv_obj_set_height(ui_kbWifi, lv_pct(50));
+    lv_obj_set_x(ui_kbWifi, 0);
+    lv_obj_set_y(ui_kbWifi, 160);
+    lv_obj_set_align(ui_kbWifi, LV_ALIGN_BOTTOM_MID);
 
-    ui_btnKbSubmit = lv_btn_create(ui_Keyboard2);
+    ui_btnKbSubmit = lv_btn_create(ui_kbWifi);
     lv_obj_set_width(ui_btnKbSubmit, 65);
     lv_obj_set_height(ui_btnKbSubmit, 35);
     lv_obj_set_align(ui_btnKbSubmit, LV_ALIGN_BOTTOM_RIGHT);
@@ -671,7 +671,7 @@ void ui_scrnMain_screen_init(void)
     lv_obj_set_style_border_color(ui_btnKbSubmit, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_opa(ui_btnKbSubmit, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_btnKbClose = lv_btn_create(ui_Keyboard2);
+    ui_btnKbClose = lv_btn_create(ui_kbWifi);
     lv_obj_set_width(ui_btnKbClose, 65);
     lv_obj_set_height(ui_btnKbClose, 35);
     lv_obj_set_align(ui_btnKbClose, LV_ALIGN_BOTTOM_LEFT);
@@ -689,9 +689,9 @@ void ui_scrnMain_screen_init(void)
     lv_obj_add_event_cb(ui_txtaPass, ui_event_txtaPass, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_btnWifiConnect, ui_event_btnWifiConnect, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_btnWifiCancel, ui_event_btnWifiCancel, LV_EVENT_ALL, NULL);
-    lv_keyboard_set_textarea(ui_Keyboard2, ui_txtaPass);
+    lv_keyboard_set_textarea(ui_kbWifi, ui_txtaPass);
     lv_obj_add_event_cb(ui_btnKbSubmit, ui_event_btnKbSubmit, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_btnKbClose, ui_event_btnKbClose, LV_EVENT_ALL, NULL);
-    lv_obj_add_event_cb(ui_Keyboard2, ui_event_Keyboard2, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_kbWifi, ui_event_kbWifi, LV_EVENT_ALL, NULL);
 
 }
