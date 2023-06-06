@@ -39,7 +39,7 @@
     $.get("/api/getsta/", function(res) {
       	  
       var obj = res;// says no longer need to convert to Json since data type is labeled Json res is already Json Obj
-	  document.getElementById("panel_1_head").innerHTML = obj.panel_1.headerTxt;
+	    document.getElementById("panel_1_head").innerHTML = obj.panel_1.headerTxt;
       document.getElementById("panel_2_head").innerHTML = obj.panel_2.headerTxt;
       document.getElementById("panel_3_head").innerHTML = obj.panel_3.headerTxt;
       document.getElementById("panel_4_head").innerHTML = obj.panel_4.headerTxt;
@@ -87,7 +87,9 @@
   
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+<link rel="icon" href="data:,">
 </head>
+
 <body>
   
   

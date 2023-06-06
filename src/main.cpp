@@ -225,7 +225,7 @@ void setup() {
   );
 */  
   // 10 seconds from now connect Wifi
-  onceTickerWifiStart.once(20, connectWIFI);
+  onceTickerWifiStart.once(5, connectWIFI);
 
 }
 

@@ -13,7 +13,8 @@
 #define USE_WIFI_SERVER (1)
 
 #if USE_WIFI_SERVER
-void handleUpload(AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final);
+void handleOTAUpload(AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final);
+void handlespiffsOTAUpload(AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final);
 AsyncWebServer server(80);
  
 const char* PARAM_MESSAGE1 = "PSU_CHAN";//psu channel, aka PSU CANbus node addressbeing selected
@@ -188,7 +189,15 @@ void doWiFiServerTask(void *pvParameters){
   server.on("/inc/navbar.html", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(SPIFFS, "/inc/navbar.html", "text/html");
   });
+
+  server.on("/mode.html", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/mode.html", "text/html");
+  });
    
+  server.on("/favicon.ico", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(SPIFFS, "/favicon.ico", "text/html");
+  });
+
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
       String msgResp;
       msgCnt++;
@@ -288,6 +297,7 @@ void doWiFiServerTask(void *pvParameters){
       request->send(response);
   });
   
+  /* Start OTA Booloader req/resp gandlers*/
   /*return index page which is stored in otaloginIndex */
   server.on("/otaindex.html", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(200, "text/html", otaloginIndex);
@@ -302,38 +312,27 @@ void doWiFiServerTask(void *pvParameters){
   server.on("/update", HTTP_POST, [](AsyncWebServerRequest *request){ 
     request->send(200, "text/plain", (Update.hasError()) ? "FAIL" : "OK");
     ESP.restart();
-  }, handleUpload);
+  }, handleOTAUpload);
+  /* End OTA Booloader req/resp gandlers*/
+  
+  /* Start SPIFFS OTA Booloader req/resp handlers*/
+  /*return index page which is stored in otaloginIndex */
+  server.on("/otaspiffsindex.html", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(200, "text/html", otaspiffsloginIndex);
+  });
+  
+  /*return the otaspiffsserverindex page which is stored in 'otaspiffsserverIndex' var*/
+  server.on("/otaspiffssrvrindex.html", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send(200, "text/html", otaspiffsserverIndex);
+  });
 
+  /*handling uploading spiffs bin image file */
+  server.on("/spiffsupdate", HTTP_POST, [](AsyncWebServerRequest *request){ 
+    request->send(200, "text/plain", (Update.hasError()) ? "FAIL" : "OK");
+    ESP.restart();
+  }, handlespiffsOTAUpload);
+  /* End SPIFFS OTA req/resp handlers*/
 
- 
-  //server.onFileUpload()
-  /*handling uploading firmware file */
-  // server.on("/update", HTTP_POST, []() {
-  //   server.sendHeader("Connection", "close");
-  //   server.send(200, "text/plain", (Update.hasError()) ? "FAIL" : "OK");
-  //   ESP.restart();
-  // }, []() {
-  //   HTTPUpload& upload = server.upload();
-  //   if (upload.status == UPLOAD_FILE_START) {
-  //     Serial.printf("Update: %s\n", upload.filename.c_str());
-  //     if (!Update.begin(UPDATE_SIZE_UNKNOWN)) { //start with max available size
-  //       Update.printError(Serial);
-  //     }
-  //   } else if (upload.status == UPLOAD_FILE_WRITE) {
-  //     /* flashing firmware to ESP*/
-  //     if (Update.write(upload.buf, upload.currentSize) != upload.currentSize) {
-  //       Update.printError(Serial);
-  //     }
-  //   } else if (upload.status == UPLOAD_FILE_END) {
-  //     if (Update.end(true)) { //true to set the size to the current progress
-  //       Serial.printf("Update Success: %u\nRebooting...\n", upload.totalSize);
-  //     } else {
-  //       Update.printError(Serial);
-  //     }
-  //   }
-  // });
-
- 
   //server.onNotFound(notFound);
   //server.onNotFound((AsyncWebServerRequest *request){
   //    request->send(200, "text/plain", "Page Not Found");
@@ -371,7 +370,7 @@ void doWiFiServerTask(void *pvParameters){
 }
 
 // handles uploads to the filserver
-void handleUpload(AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final) {
+void handleOTAUpload(AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final) {
   const char* FILESIZE_HEADER{"FileSize"};
   static int filesize, fileleft;
 
@@ -395,8 +394,6 @@ void handleUpload(AsyncWebServerRequest *request, String filename, size_t index,
       if(index != 0 && filesize != 0){
         fileleft = index/filesize;
       }
-      // stream the incoming chunk to the opened file
-      request->_tempFile.write(data, len);
       /* flashing firmware to ESP*/
       if (Update.write(data, len) != len) {
         Update.printError(Serial);
@@ -407,8 +404,55 @@ void handleUpload(AsyncWebServerRequest *request, String filename, size_t index,
 
     if (final) {
       logmessage = "Upload Complete: " + String(filename) + ",size: " + String(index + len);
-      // close the file handle as the upload is now done
-      //request->_tempFile.close();
+      Serial.println(logmessage);
+      if (Update.end(true)) { //true to set the size to the current progress
+        Serial.printf("Update Success: %u\nRebooting...\n", filesize );
+      } else {
+        Update.printError(Serial);
+      }
+      request->redirect("/");
+    }
+  //} else {
+  //  Serial.println("Auth: Failed");
+  //  return request->requestAuthentication();
+  //}
+}
+
+// handles uploads to the filserver
+void handlespiffsOTAUpload(AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final) {
+  const char* FILESIZE_HEADER{"FileSize"};
+  static int filesize, fileleft;
+
+  filesize = request->header(FILESIZE_HEADER).toInt();
+  // make sure authenticated before allowing upload
+  //if (checkUserWebAuth(request)) {
+    String logmessage = "Client:" + request->client()->remoteIP().toString() + " " + request->url();
+    Serial.println(logmessage);
+
+    if (!index) {
+      logmessage = "Upload Start: " + String(filename);
+      // open the file on first call and store the file handle in the request object
+      Serial.println(logmessage);
+     
+      if (!Update.begin(UPDATE_SIZE_UNKNOWN)) { //start with max available size
+        Update.printError(Serial);
+      }
+    }
+
+    if (len) {
+      if(index != 0 && filesize != 0){
+        fileleft = index/filesize;
+      }
+      /* flashing firmware to ESP*/
+      if (Update.write(data, len) != len) {
+        Update.printError(Serial);
+      }
+      logmessage = "Writing file: " + String(filename) + " index=" + String(index) + " len=" + String(len) + " , Written: " + String(fileleft);
+      Serial.println(logmessage);
+    }
+
+    if (final) {
+      logmessage = "Upload Complete: " + String(filename) + ",size: " + String(index + len);
       Serial.println(logmessage);
       if (Update.end(true)) { //true to set the size to the current progress
         Serial.printf("Update Success: %u\nRebooting...\n", filesize );

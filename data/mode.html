@@ -1,22 +1,9 @@
 <!doctype html>
 <html lang="en">
-<head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"  "HTTP/1.1 200 OK\r\n"  "CACHE-CONTROL: max-age=86400\r\n">
-<title>eLink2 Home</title>
+<title>ICCP Mode Setup</title>
   
-<!-- JQuery Import
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
--->
-<!-- Latest compiled and minified CSS 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
--->
-<!-- Optional theme -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">-->
-<!-- Latest compiled and minified JavaScript 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
--->
-
-
+<!-- JQuery Import-->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -47,6 +34,7 @@
   	    $.get($(this).attr("id"));
   	});
 	function refreshValues() {
+		/*
        $.get("fault-ind", function(res) {
 	   printf("Test");
            if(res.includes('PASSING'))
@@ -62,9 +50,10 @@
         $.get("psu_sets", function(res) {
            $("#sets_resp").find("b").html(res);           
         });
-	   setTimeout(refreshValues, 250); 
+		*/
+	   setTimeout(refreshValues, 1250); 
 	}
-	setTimeout(refreshValues, 250);
+	setTimeout(refreshValues, 1250);
   });
   
   
@@ -75,6 +64,7 @@
         
         //linkDebug = document.getElementById("myDebugUrl");
         //linkDebug.href = '/debug.html' +'?' +d.getTime();
+		setTimeout(refreshValues, 1250);
   }
   
  /*function to loop hrough files in 'inc' folder and add html from them into this html doc*/
@@ -87,11 +77,13 @@
 }) 
  
 </script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+<link rel="icon" href="data:,">
 </head>
 <body>
     
-
+<div data-include="navbar"></div>
 <div class="container">	  
   <div class="panel-group">
     <div class="panel panel-default">
