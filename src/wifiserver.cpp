@@ -10,9 +10,24 @@
 #include <Update.h>
 #include "otawebpages.h"
 
+#include "esp_system.h"
+#include "esp_event.h"
+#include "esp_log.h"
+#include "esp_ota_ops.h"
+#include "esp_flash_partitions.h"
+#include "esp_partition.h"
+#include "nvs.h"
+#include "nvs_flash.h"
+#include "driver/gpio.h"
+#include "errno.h"
+
+
 #define USE_WIFI_SERVER (1)
 
 #if USE_WIFI_SERVER
+#define BUFFSIZE 1024
+
+
 void handleOTAUpload(AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final);
 void handlespiffsOTAUpload(AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final);
 AsyncWebServer server(80);
@@ -23,6 +38,9 @@ int apimsgCnt =0;
 String command = "";
 int led_status = 255;
 
+static const char *TAG = "native_ota_example";
+/*an ota data write buffer ready to write to the flash*/
+static char ota_write_data[BUFFSIZE + 1] = { 0 };
 //void notFound(AsyncWebServerRequest *request) {
 //    request->send(404, "text/plain", "Not found");
 //}
@@ -371,7 +389,7 @@ void doWiFiServerTask(void *pvParameters){
 
 // handles uploads to the filserver
 void handleOTAUpload(AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final) {
-  const char* FILESIZE_HEADER{"FileSize"};
+  const char* FILESIZE_HEADER{"Content-Length"};
   static int filesize, fileleft;
 
   filesize = request->header(FILESIZE_HEADER).toInt();
@@ -392,13 +410,13 @@ void handleOTAUpload(AsyncWebServerRequest *request, String filename, size_t ind
 
     if (len) {
       if(index != 0 && filesize != 0){
-        fileleft = index/filesize;
+        fileleft = index*100/filesize;
       }
       /* flashing firmware to ESP*/
       if (Update.write(data, len) != len) {
         Update.printError(Serial);
       }
-      logmessage = "Writing file: " + String(filename) + " index=" + String(index) + " len=" + String(len) + " , Written: " + String(fileleft);
+      logmessage = "Writing file chunk: " + String(filename) + " index=" + String(index) + " len=" + String(len) + " , Written: " + String(fileleft) + "%";
       Serial.println(logmessage);
     }
 
@@ -420,50 +438,87 @@ void handleOTAUpload(AsyncWebServerRequest *request, String filename, size_t ind
 
 // handles uploads to the filserver
 void handlespiffsOTAUpload(AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final) {
-  const char* FILESIZE_HEADER{"FileSize"};
-  static int filesize, fileleft;
-
+  static const char* FILESIZE_HEADER{"Content-Length"};
+  static int filesize;
+  static int fileleft;
+  static esp_err_t err,
+            errErasePart;
+  /* update handle : set by esp_ota_begin(), must be freed via esp_ota_end() */
+  static esp_ota_handle_t update_handle = 0 ;
+  static const esp_partition_t *update_partition = NULL;
+  static esp_partition_t *spiffs_partition=NULL;
+  const esp_partition_t *configured = esp_ota_get_boot_partition();
+  const esp_partition_t *running = esp_ota_get_running_partition();
+    
   filesize = request->header(FILESIZE_HEADER).toInt();
   // make sure authenticated before allowing upload
   //if (checkUserWebAuth(request)) {
-    String logmessage = "Client:" + request->client()->remoteIP().toString() + " " + request->url();
+  String logmessage = "SPIFFs OTA Client Start: " + request->client()->remoteIP().toString() + " " + request->url();
+  Serial.println(logmessage);
+
+  if (!index) {
+    logmessage = "SPIFFs Upload Start: Get SPIFFS Partition Info" + String(filename);
+    // open the file on first call and store the file handle in the request object
     Serial.println(logmessage);
-
-    if (!index) {
-      logmessage = "Upload Start: " + String(filename);
-      // open the file on first call and store the file handle in the request object
-      Serial.println(logmessage);
-     
-      if (!Update.begin(UPDATE_SIZE_UNKNOWN)) { //start with max available size
-        Update.printError(Serial);
-      }
+    
+    /*Update SPIFFS : 1/ First we need to find SPIFFS partition  */
+    esp_partition_iterator_t spiffs_partition_iterator=esp_partition_find(ESP_PARTITION_TYPE_DATA, ESP_PARTITION_SUBTYPE_DATA_SPIFFS,NULL);
+    while(spiffs_partition_iterator !=NULL){
+        spiffs_partition = (esp_partition_t *)esp_partition_get(spiffs_partition_iterator);
+        printf("main: partition type = %d.\n", spiffs_partition->type);
+        printf("main: partition subtype = %d.\n", spiffs_partition->subtype);
+        printf("main: partition starting address = %x.\n", spiffs_partition->address);
+        printf("main: partition size = %x.\n", spiffs_partition->size);
+        printf("main: partition label = %s.\n", spiffs_partition->label);
+        printf("main: partition subtype = %d.\n", spiffs_partition->encrypted);
+        printf("\n");
+        printf("\n");
+        spiffs_partition_iterator=esp_partition_next(spiffs_partition_iterator);
     }
-
-    if (len) {
-      if(index != 0 && filesize != 0){
-        fileleft = index/filesize;
-      }
-      /* flashing firmware to ESP*/
-      if (Update.write(data, len) != len) {
-        Update.printError(Serial);
-      }
-      logmessage = "Writing file: " + String(filename) + " index=" + String(index) + " len=" + String(len) + " , Written: " + String(fileleft);
-      Serial.println(logmessage);
+    printf("Before 1 sec delay \n");
+    delay(1000);
+    printf("After 1 sec delay \n");
+    esp_partition_iterator_release(spiffs_partition_iterator);
+    printf("Before Partition Erase Req: starting address = %x Size %x \n", spiffs_partition->address,spiffs_partition->size);
+    /* 2: Delete SPIFFS Partition  */
+    errErasePart=esp_partition_erase_range(spiffs_partition,spiffs_partition->address,spiffs_partition->size);
+    
+    if (errErasePart == ESP_OK) {
+      logmessage = "SPIFFs Erase Partition: Success" + String((int)err);
+    }else{
+      logmessage = "SPIFFs Erase Partition: Failed " + String((int)err);
     }
+    Serial.println(logmessage);
+    
+  }
 
-    if (final) {
-      logmessage = "Upload Complete: " + String(filename) + ",size: " + String(index + len);
-      Serial.println(logmessage);
-      if (Update.end(true)) { //true to set the size to the current progress
-        Serial.printf("Update Success: %u\nRebooting...\n", filesize );
-      } else {
-        Update.printError(Serial);
-      }
-      request->redirect("/");
+  if (len) {
+    if(index != 0 && filesize != 0){
+      fileleft = index*100/filesize;
+      //printf("Filesize: %x Chunk Offset %x File size remaining: %i% \n",filesize,index,fileleft);
     }
-  //} else {
-  //  Serial.println("Auth: Failed");
-  //  return request->requestAuthentication();
-  //}
+    logmessage = "SPIFFs Start Writing file to partition: " + String(filename) + " index=" + String(index) + " len=" + String(len) + " , Written: " + String(fileleft) + "%'";
+    Serial.println(logmessage);
+    /* 3 : WRITE SPIFFS PARTITION */
+    err= esp_partition_write(spiffs_partition,index,data, len);
+            
+    if (err != ESP_OK) {
+      logmessage = "SPIFFs Writing file chunk: failed " + String(err);
+    }else{
+      logmessage = "SPIFFs Written file chunk: " + String(filename) + " Offset=" + String(index) + " len=" + String(len);
+    }
+    Serial.println(logmessage);
+  }
+
+  if (final) {
+    logmessage = "SPIFFs Upload Complete: " + String(filename) + ",size: " + String(index + len);
+    Serial.println(logmessage);
+    request->redirect("/");
+    //ESP will restart after this 
+  }
+//} else {
+//  Serial.println("Auth: Failed");
+//  return request->requestAuthentication();
+//}
 }
 #endif
