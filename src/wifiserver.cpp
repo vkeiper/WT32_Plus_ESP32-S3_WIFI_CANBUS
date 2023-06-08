@@ -25,11 +25,15 @@
 #define USE_WIFI_SERVER (1)
 
 #if USE_WIFI_SERVER
+#define SRVDBGON (1)
+
 #define BUFFSIZE 1024
 
 
 void handleOTAUpload(AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final);
 void handlespiffsOTAUpload(AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final);
+void findSpiffsPartition(void);
+
 AsyncWebServer server(80);
  
 const char* PARAM_MESSAGE1 = "PSU_CHAN";//psu channel, aka PSU CANbus node addressbeing selected
@@ -37,6 +41,12 @@ int msgCnt =0;
 int apimsgCnt =0;  
 String command = "";
 int led_status = 255;
+bool bEraseSpiffs = false;
+const esp_partition_t *spiffs_partition=NULL;
+const esp_partition_t *partition = esp_partition_find_first(ESP_PARTITION_TYPE_DATA, ESP_PARTITION_SUBTYPE_DATA_SPIFFS, "spiffs");
+    
+esp_err_t errErasePart = -2;
+
 
 static const char *TAG = "native_ota_example";
 /*an ota data write buffer ready to write to the flash*/
@@ -72,7 +82,7 @@ void sendError(AsyncWebServerRequest *request, int httpCode, String error) {
 }
 */
 
-/*
+
 void listDir(fs::FS &fs, const char * dirname, uint8_t levels){
     Serial.printf("Listing directory: %s\r\n", dirname);
 
@@ -103,38 +113,8 @@ void listDir(fs::FS &fs, const char * dirname, uint8_t levels){
         file = root.openNextFile();
     }
 }
-*/
 
-void doSimpleWiFiServerTask(void *pvParameters){
-  
-  server.on("/hello", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(200, "text/plain", "Hello World");
-  });
-  server.begin();
-  Serial.println("Wifi Server Task Running");
 
-  while(1){
-       vTaskDelay(5);
-
-       if(Serial.available()){
-        command = Serial.readStringUntil('\n');
-
-        Serial.printf("Command received %s \n", command);
-
-        if(command.startsWith("refelc")){
-            
-        } else if(command.equals("led=off")){
-            
-            led_status = 0;
-        } else if(command.equals("ledstatus")){
-            
-            led_status = 3;
-        } else{
-            Serial.println("Invalid command");
-        }
-    }
-  }
-}
 
 void doWiFiServerTask(void *pvParameters){
       
@@ -150,12 +130,12 @@ void doWiFiServerTask(void *pvParameters){
     Serial.println("mDNS responder started");
   }
 
+  /* Open File system */
   if(!SPIFFS.begin()){
      Serial.println("An Error has occurred while mounting SPIFFS");
      //return;
   }else{
    File root = SPIFFS.open("/");
- 
    File file = root.openNextFile();
    if(file){
      while(file){
@@ -166,16 +146,13 @@ void doWiFiServerTask(void *pvParameters){
         file = root.openNextFile();
       }
    }
+
   }
   
+  /* Creates starter Json Template File used by Web Page & Server */
   doCreateJsonDoc();
 
-//<link rel="stylesheet" href="/css/bootstrap-theme.min.css" />  
-//<link rel="stylesheet" href="/css/bootstrap.min.css" /> 
-//<script src="/js/jquery-3.4.1.min.js"></script>
-//<script src="/js/popper.min1.14.7.js"></script> 
-//<script src="/js/bootstrap-4.3.1.min.js"></script>
-    
+  /*Web Server request handlers*/   
   server.on("/css/bootstrap-theme.min.css", HTTP_GET, [](AsyncWebServerRequest *request){
     request->send(SPIFFS, "/css/bootstrap-theme.min.css", "text/css");
   });
@@ -226,7 +203,7 @@ void doWiFiServerTask(void *pvParameters){
   });
 
   // Send a GET request to <IP>/get?message=<message>
-  //VGK, so http://192.168.1.58/get?ELINK_TEST=567 will receive '567' as value
+  //VGK, so http://192.168.1.58/get?PSU_CHAN=567 will receive '567' as value
   server.on("/get", HTTP_GET, [] (AsyncWebServerRequest *request) {
       String msgResp;
       msgCnt++;
@@ -239,6 +216,12 @@ void doWiFiServerTask(void *pvParameters){
 
       Serial.println("GET /get " + msgResp);
       updateFooterPanel(lv_palette_main(LV_PALETTE_GREEN), " GET PARAM " + String(PARAM_MESSAGE1) +" " + msgResp);
+      Serial.println("Erase SPIFFS CMD received " + msgResp);
+        
+      if(msgResp.substring(0) == "lcdmsg")
+      {
+        //
+      }
   });
 
   server.on("/printIp", HTTP_GET, [](AsyncWebServerRequest *request){ 
@@ -341,13 +324,20 @@ void doWiFiServerTask(void *pvParameters){
   
   /*return the otaspiffsserverindex page which is stored in 'otaspiffsserverIndex' var*/
   server.on("/otaspiffssrvrindex.html", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(200, "text/html", otaspiffsserverIndex);
+    //request->send(200, "text/html", otaspiffsserverIndex);
+    request->send(SPIFFS, "/spiffsota.html", "text/html");
   });
 
   /*handling uploading spiffs bin image file */
   server.on("/spiffsupdate", HTTP_POST, [](AsyncWebServerRequest *request){ 
-    request->send(200, "text/plain", (Update.hasError()) ? "FAIL" : "OK");
-    ESP.restart();
+    String logmessage = "1. SPIFFS Client: Before request sent";
+    Serial.println(logmessage);
+
+    request->send(200, "text/plain", "done");
+
+    logmessage = "2. SPIFFS Client: After request sent";
+    Serial.println(logmessage);
+
   }, handlespiffsOTAUpload);
   /* End SPIFFS OTA req/resp handlers*/
 
@@ -364,8 +354,10 @@ void doWiFiServerTask(void *pvParameters){
   
    
   while(1){
-       vTaskDelay(5);
-
+      vTaskDelay(100);
+      #if DBG_WIFISRV_LOOP
+        Serial.println("doWiFiServer Loop Running");
+      #endif
        if(Serial.available()){
         command = Serial.readStringUntil('\n');
 
@@ -436,66 +428,53 @@ void handleOTAUpload(AsyncWebServerRequest *request, String filename, size_t ind
   //}
 }
 
+    
 // handles uploads to the filserver
 void handlespiffsOTAUpload(AsyncWebServerRequest *request, String filename, size_t index, uint8_t *data, size_t len, bool final) {
   static const char* FILESIZE_HEADER{"Content-Length"};
   static int filesize;
   static int fileleft;
-  static esp_err_t err,
-            errErasePart;
-  /* update handle : set by esp_ota_begin(), must be freed via esp_ota_end() */
-  static esp_ota_handle_t update_handle = 0 ;
-  static const esp_partition_t *update_partition = NULL;
-  static esp_partition_t *spiffs_partition=NULL;
-  const esp_partition_t *configured = esp_ota_get_boot_partition();
-  const esp_partition_t *running = esp_ota_get_running_partition();
-    
-  filesize = request->header(FILESIZE_HEADER).toInt();
+  static esp_err_t err;
+  
   // make sure authenticated before allowing upload
   //if (checkUserWebAuth(request)) {
-  String logmessage = "SPIFFs OTA Client Start: " + request->client()->remoteIP().toString() + " " + request->url();
+
+  String logmessage = "SPIFFs OTA Client Callback Invoked: " + request->client()->remoteIP().toString() + " " + request->url() + " Index: " + String(index);
   Serial.println(logmessage);
 
+  /*
+    VGK, First Time through index = 0, so ill place setup tasks in this block, sub sequent invocations 
+    for file chunkling the index value will be non-zero
+  */
   if (!index) {
-    logmessage = "SPIFFs Upload Start: Get SPIFFS Partition Info" + String(filename);
-    // open the file on first call and store the file handle in the request object
+    filesize = request->header(FILESIZE_HEADER).toInt();  logmessage = "SPIFFs Upload Start: File Received " + String(filename);
     Serial.println(logmessage);
     
-    /*Update SPIFFS : 1/ First we need to find SPIFFS partition  */
-    esp_partition_iterator_t spiffs_partition_iterator=esp_partition_find(ESP_PARTITION_TYPE_DATA, ESP_PARTITION_SUBTYPE_DATA_SPIFFS,NULL);
-    while(spiffs_partition_iterator !=NULL){
-        spiffs_partition = (esp_partition_t *)esp_partition_get(spiffs_partition_iterator);
-        printf("main: partition type = %d.\n", spiffs_partition->type);
-        printf("main: partition subtype = %d.\n", spiffs_partition->subtype);
-        printf("main: partition starting address = %x.\n", spiffs_partition->address);
-        printf("main: partition size = %x.\n", spiffs_partition->size);
-        printf("main: partition label = %s.\n", spiffs_partition->label);
-        printf("main: partition subtype = %d.\n", spiffs_partition->encrypted);
-        printf("\n");
-        printf("\n");
-        spiffs_partition_iterator=esp_partition_next(spiffs_partition_iterator);
-    }
-    printf("Before 1 sec delay \n");
-    delay(1000);
-    printf("After 1 sec delay \n");
-    esp_partition_iterator_release(spiffs_partition_iterator);
-    printf("Before Partition Erase Req: starting address = %x Size %x \n", spiffs_partition->address,spiffs_partition->size);
-    /* 2: Delete SPIFFS Partition  */
-    errErasePart=esp_partition_erase_range(spiffs_partition,spiffs_partition->address,spiffs_partition->size);
     
-    if (errErasePart == ESP_OK) {
-      logmessage = "SPIFFs Erase Partition: Success" + String((int)err);
-    }else{
-      logmessage = "SPIFFs Erase Partition: Failed " + String((int)err);
-    }
-    Serial.println(logmessage);
+    /*2. Endf SPIFFs seesion */
+    //SPIFFS.end();
+
+    /*3. Kill Core/Loop WDTs*/
+    disableCore0WDT();
+    disableCore1WDT();
+    disableLoopWDT(); 
+
+
+    /*4: Delete SPIFFS Partition  */
+    findSpiffsPartition();
+    errErasePart=esp_partition_erase_range(spiffs_partition,0,spiffs_partition->size);
     
+    enableCore0WDT();
+    enableCore1WDT();
+    enableLoopWDT(); 
   }
 
+  /*Do not chunk file or write if erase partition fails*/
+  if(errErasePart == ESP_OK){
   if (len) {
+    // calc % remaining
     if(index != 0 && filesize != 0){
       fileleft = index*100/filesize;
-      //printf("Filesize: %x Chunk Offset %x File size remaining: %i% \n",filesize,index,fileleft);
     }
     logmessage = "SPIFFs Start Writing file to partition: " + String(filename) + " index=" + String(index) + " len=" + String(len) + " , Written: " + String(fileleft) + "%'";
     Serial.println(logmessage);
@@ -505,7 +484,7 @@ void handlespiffsOTAUpload(AsyncWebServerRequest *request, String filename, size
     if (err != ESP_OK) {
       logmessage = "SPIFFs Writing file chunk: failed " + String(err);
     }else{
-      logmessage = "SPIFFs Written file chunk: " + String(filename) + " Offset=" + String(index) + " len=" + String(len);
+      logmessage = "SPIFFs Written file chunk: " + String(filename) + " Offset= " + String(index) + " len=" + String(len);
     }
     Serial.println(logmessage);
   }
@@ -514,11 +493,55 @@ void handlespiffsOTAUpload(AsyncWebServerRequest *request, String filename, size
     logmessage = "SPIFFs Upload Complete: " + String(filename) + ",size: " + String(index + len);
     Serial.println(logmessage);
     request->redirect("/");
+    bool bErrSb = SPIFFS.begin();
+    
+    logmessage = "SPIFFs Begin After Update: Begin Status " + String(bErrSb) + ",size: " + String(SPIFFS.usedBytes());
+    Serial.println(logmessage);
+    
     //ESP will restart after this 
+    ESP.restart();
   }
 //} else {
 //  Serial.println("Auth: Failed");
 //  return request->requestAuthentication();
 //}
+
+}else{
+  if(errErasePart == -2){
+    logmessage = "SPIFFs Upload Failed: Partition Not Erased Before Data Arrived: Code " + String(errErasePart);
+    Serial.println(logmessage);
+    request->redirect("/index2");
+  }else if(errErasePart != -2 && errErasePart != ESP_OK){
+     logmessage = "SPIFFs Upload Failed: Couldnt Erase Partition: Code " + String(errErasePart);
+    Serial.println(logmessage);
+    request->redirect("/index2");
+  }
 }
+
+}//end handleotaspiffs
+
+
+
+void findSpiffsPartition(void)
+{
+  /* Find SPIFFS  partition and return pointer to partityion struct */
+  esp_partition_iterator_t spiffs_partition_iterator=esp_partition_find(ESP_PARTITION_TYPE_DATA, ESP_PARTITION_SUBTYPE_DATA_SPIFFS,NULL);
+  while(spiffs_partition_iterator !=NULL){
+      spiffs_partition = (esp_partition_t *)esp_partition_get(spiffs_partition_iterator);
+      printf("main: partition type = %d.\n", spiffs_partition->type);
+      printf("main: partition subtype = %d.\n", spiffs_partition->subtype);
+      printf("main: partition starting address = %x.\n", spiffs_partition->address);
+      printf("main: partition size = %x.\n", spiffs_partition->size);
+      printf("main: partition label = %s.\n", spiffs_partition->label);
+      printf("main: partition subtype = %d.\n", spiffs_partition->encrypted);
+      printf("\n");
+      printf("\n");
+      spiffs_partition_iterator=esp_partition_next(spiffs_partition_iterator);
+  }
+  vTaskDelay(1000);
+  esp_partition_iterator_release(spiffs_partition_iterator);
+
+  printf("Before Partition Erase Req: starting address = %x Size %x SPIFFS Size %i\n", spiffs_partition->address,spiffs_partition->size, SPIFFS.usedBytes());
+}
+
 #endif

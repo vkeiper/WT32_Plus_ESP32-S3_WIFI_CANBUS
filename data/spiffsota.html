@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"  "HTTP/1.1 200 OK\r\n"  "CACHE-CONTROL: max-age=86400\r\n">
+<title>File System OTA Update</title>
+  
+<!-- JQuery Import-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- local stored bootstrap and jquery files-->
+<link rel="stylesheet" href="/css/bootstrap-theme.min.css" />  
+<link rel="stylesheet" href="/css/bootstrap.min.css" /> 
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/popper.min1.14.7.js"></script> 
+<script src="/js/bootstrap-4.3.1.min.js"></script>
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
+<link rel="icon" href="data:,">
+</head>
+<body>
+	<form method='POST' action='#' enctype='multipart/form-data' id='upload_form'>
+		<input type='file' name='update'>
+			<input type='submit' value='Update'>
+	</form>
+	<div id='prg'>progress: 0%</div>
+	
+	<script>$('form').submit(function(e){e.preventDefault();var form = $('#upload_form')[0];var data = new FormData(form); $.ajax({url: '/spiffsupdate',type: 'POST',data: data,contentType: false,processData:false,xhr: function() {var xhr = new window.XMLHttpRequest();xhr.upload.addEventListener('progress', function(evt) {if (evt.lengthComputable) {var per = evt.loaded / evt.total;$('#prg').html('progress: ' + Math.round(per*100) + '%');}}, false);return xhr;},success:function(d, s) {console.log('success!')},error: function (a, b, c) {}});});</script>
+	
+	<!--
+	<script>
+		$('form').submit(function(e){
+		  e.preventDefault();
+		  var form = $('#upload_form')[0];
+		  var data = new FormData(form);
+			  $.ajax({
+				url: '/spiffsupdate',
+				type: 'POST',
+				data: data,
+				contentType: false,
+				processData:false,
+				xhr: function() {
+					var xhr = new window.XMLHttpRequest();
+					xhr.upload.addEventListener('progress', function(evt) {
+						if (evt.lengthComputable) {
+							var per = evt.loaded / evt.total;
+							$('#prg').html('progress: ' + Math.round(per*100) + '%');
+						}
+					}, false);
+					return xhr;
+				},
+				success:function(d, s) {
+					console.log('success!')
+				},
+				
+				error: function (a, b, c) {
+				}
+			});
+		 });
+		</script>
+	    -->
+	</div>
+		<p style="text-align:left;"> Astrodyne TDI Inc. 2023 v1.0.1 230608_1235 Vince Keiper&nbsp &nbsp</p>
+	</div>
+</body>
+</html>

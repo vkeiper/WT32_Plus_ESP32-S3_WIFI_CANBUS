@@ -224,7 +224,7 @@ void setup() {
     1                // pin to core #x
   );
 */  
-  // 10 seconds from now connect Wifi
+  // 5 seconds from now connect Wifi
   onceTickerWifiStart.once(5, connectWIFI);
 
 }
