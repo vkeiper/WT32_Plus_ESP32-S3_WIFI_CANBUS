@@ -29,3 +29,53 @@ void openKeyboard(lv_event_t * e)
 {
 	// Your code here
 }
+
+void changeNode(lv_event_t * e)
+{
+	// Your code here
+}
+
+void openCanbus(lv_event_t * e)
+{
+	// Your code here
+}
+
+void wrSetPoints(lv_event_t * e)
+{
+	// Your code here
+}
+
+void enableRC1(lv_event_t * e)
+{
+	// Your code here
+}
+
+void enableRC2(lv_event_t * e)
+{
+	// Your code here
+}
+
+void enableRC3(lv_event_t * e)
+{
+	// Your code here
+}
+
+void enableRCShaft3(lv_event_t * e)
+{
+	// Your code here
+}
+
+void enableRCShaft4(lv_event_t * e)
+{
+	// Your code here
+}
+
+void enableRC4(lv_event_t * e)
+{
+	// Your code here
+}
+
+void clearFlts(lv_event_t * e)
+{
+	// Your code here
+}

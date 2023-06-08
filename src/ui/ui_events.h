@@ -11,9 +11,18 @@ extern "C" {
 #endif
 
 void tglOutput(lv_event_t * e);
-void nodeSelect(lv_event_t * e);
+void changeNode(lv_event_t * e);
+void openCanbus(lv_event_t * e);
 void connectWifi(lv_event_t * e);
-void nodeSelect(lv_event_t * e);
+void wrSetPoints(lv_event_t * e);
+void changeNode(lv_event_t * e);
+void enableRC1(lv_event_t * e);
+void enableRC2(lv_event_t * e);
+void enableRC3(lv_event_t * e);
+void enableRCShaft3(lv_event_t * e);
+void enableRCShaft4(lv_event_t * e);
+void enableRC4(lv_event_t * e);
+void clearFlts(lv_event_t * e);
 
 #ifdef __cplusplus
 } /*extern "C"*/
