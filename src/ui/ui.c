@@ -20,23 +20,6 @@ lv_obj_t * ui_btnOutput;
 lv_obj_t * ui_lblBtnOut;
 lv_obj_t * ui_pnlOutputData;
 lv_obj_t * ui_lblOpData;
-lv_obj_t * ui_pnlScrnSelMain;
-void ui_event_btnToManual(lv_event_t * e);
-lv_obj_t * ui_btnToManual;
-lv_obj_t * ui_lblToManual;
-void ui_event_btnToFaults(lv_event_t * e);
-lv_obj_t * ui_btnToFaults;
-lv_obj_t * ui_lblToFaults;
-lv_obj_t * ui_pnlHdr;
-lv_obj_t * ui_lblHdr;
-void ui_event_ddNode(lv_event_t * e);
-lv_obj_t * ui_ddNode;
-void ui_event_btnWifi(lv_event_t * e);
-lv_obj_t * ui_btnWifi;
-void ui_event_btnCanbus(lv_event_t * e);
-lv_obj_t * ui_btnCanbus;
-void ui_event_swchScrnSel(lv_event_t * e);
-lv_obj_t * ui_swchScrnSel;
 lv_obj_t * ui_pnlRc;
 lv_obj_t * ui_pnlRcHdr;
 lv_obj_t * ui_lblSre;
@@ -50,6 +33,26 @@ lv_obj_t * ui_lblRc3D;
 lv_obj_t * ui_lblRc4D;
 lv_obj_t * ui_pnlRcBrdr1;
 lv_obj_t * ui_pnlRcBrdr2;
+lv_obj_t * ui_pnlScrnSelMain;
+void ui_event_btnToManual(lv_event_t * e);
+lv_obj_t * ui_btnToManual;
+lv_obj_t * ui_lblToManual;
+void ui_event_btnToFaults(lv_event_t * e);
+lv_obj_t * ui_btnToFaults;
+lv_obj_t * ui_lblToFaults;
+void ui_event_btnToCan(lv_event_t * e);
+lv_obj_t * ui_btnToCan;
+lv_obj_t * ui_lblToCan;
+lv_obj_t * ui_pnlHdr;
+lv_obj_t * ui_lblHdr;
+void ui_event_ddNode(lv_event_t * e);
+lv_obj_t * ui_ddNode;
+void ui_event_btnWifi(lv_event_t * e);
+lv_obj_t * ui_btnWifi;
+void ui_event_btnCanbus(lv_event_t * e);
+lv_obj_t * ui_btnCanbus;
+void ui_event_swchScrnMain(lv_event_t * e);
+lv_obj_t * ui_swchScrnMain;
 lv_obj_t * ui_pnlCm;
 lv_obj_t * ui_pnlCmHdr;
 lv_obj_t * ui_lblCm;
@@ -117,15 +120,18 @@ lv_obj_t * ui_pnlScrnSelManu;
 void ui_event_btnToMainManu(lv_event_t * e);
 lv_obj_t * ui_btnToMainManu;
 lv_obj_t * ui_lblToMainManu;
-void ui_event_btnToFault(lv_event_t * e);
-lv_obj_t * ui_btnToFault;
-lv_obj_t * ui_lblToFault;
+void ui_event_btnToFltManu(lv_event_t * e);
+lv_obj_t * ui_btnToFltManu;
+lv_obj_t * ui_lblToFltManu;
+void ui_event_Button2(lv_event_t * e);
+lv_obj_t * ui_Button2;
+lv_obj_t * ui_Label2;
 lv_obj_t * ui_pnlHdrManual;
 lv_obj_t * ui_lblHdr1;
 void ui_event_ddNode1(lv_event_t * e);
 lv_obj_t * ui_ddNode1;
-void ui_event_swchScrnSel2(lv_event_t * e);
-lv_obj_t * ui_swchScrnSel2;
+void ui_event_swchScrnManu(lv_event_t * e);
+lv_obj_t * ui_swchScrnManu;
 lv_obj_t * ui_pnlRcManual;
 lv_obj_t * ui_pnlRcManualHdr;
 lv_obj_t * ui_lblRcManualHdr;
@@ -165,11 +171,14 @@ void ui_event_btnKbSubmit1(lv_event_t * e);
 lv_obj_t * ui_btnKbSubmit1;
 void ui_event_btnKbClose1(lv_event_t * e);
 lv_obj_t * ui_btnKbClose1;
-lv_obj_t * ui_tblFlt;
 
 // SCREEN: ui_scrnFaults
 void ui_scrnFaults_screen_init(void);
 lv_obj_t * ui_scrnFaults;
+lv_obj_t * ui_pnlSysFaults;
+lv_obj_t * ui_pnlSysFaultsHdr;
+lv_obj_t * ui_lblSysFltHdr;
+lv_obj_t * ui_pnlSysFaultsBody;
 lv_obj_t * ui_pnlScrnSelFlt;
 void ui_event_btnToMainFlt(lv_event_t * e);
 lv_obj_t * ui_btnToMainFlt;
@@ -184,10 +193,36 @@ lv_obj_t * ui_swchScrnFlt;
 void ui_event_btnClearFlt(lv_event_t * e);
 lv_obj_t * ui_btnClearFlt;
 lv_obj_t * ui_lblClrFlts;
-lv_obj_t * ui_pnlSysFaults;
-lv_obj_t * ui_pnlSysFaultsHdr;
-lv_obj_t * ui_lblSysFltHdr;
-lv_obj_t * ui_pnlSysFaultsBody;
+
+// SCREEN: ui_scrnCanbus
+void ui_scrnCanbus_screen_init(void);
+lv_obj_t * ui_scrnCanbus;
+lv_obj_t * ui_pnlCanRx;
+lv_obj_t * ui_pnlCanRxHdr;
+lv_obj_t * ui_lblCanRxHdr;
+lv_obj_t * ui_pnlCanRxBody;
+lv_obj_t * ui_pnlScrnSelCanbus;
+void ui_event_btnToMainCan(lv_event_t * e);
+lv_obj_t * ui_btnToMainCan;
+lv_obj_t * ui_lblToMainCan;
+void ui_event_btnToManuCan(lv_event_t * e);
+lv_obj_t * ui_btnToManuCan;
+lv_obj_t * ui_lblToManuCan;
+void ui_event_btnToFltCan(lv_event_t * e);
+lv_obj_t * ui_btnToFltCan;
+lv_obj_t * ui_lblToFltCan;
+lv_obj_t * ui_pnlHdrCan;
+lv_obj_t * ui_lblHdrCan;
+void ui_event_swchScrnCanbus(lv_event_t * e);
+lv_obj_t * ui_swchScrnCanbus;
+lv_obj_t * ui_lblModeSelTx;
+void ui_event_sldrModeSel(lv_event_t * e);
+lv_obj_t * ui_sldrModeSel;
+lv_obj_t * ui_lblModeSelRx;
+lv_obj_t * ui_pnlCanTx;
+lv_obj_t * ui_pnlCanTxHdr;
+lv_obj_t * ui_lblCanTxHdr;
+lv_obj_t * ui_pnlCanTxBody;
 lv_obj_t * ui____initial_actions0;
 
 ///////////////////// TEST LVGL SETTINGS ////////////////////
@@ -209,7 +244,7 @@ void openScrnSel_Animation(lv_obj_t * TargetObject, int delay)
     lv_anim_set_time(&PropertyAnimation_0, 250);
     lv_anim_set_user_data(&PropertyAnimation_0, PropertyAnimation_0_user_data);
     lv_anim_set_custom_exec_cb(&PropertyAnimation_0, _ui_anim_callback_set_y);
-    lv_anim_set_values(&PropertyAnimation_0, -50, 43);
+    lv_anim_set_values(&PropertyAnimation_0, -100, 43);
     lv_anim_set_path_cb(&PropertyAnimation_0, lv_anim_path_linear);
     lv_anim_set_delay(&PropertyAnimation_0, delay + 0);
     lv_anim_set_deleted_cb(&PropertyAnimation_0, _ui_anim_callback_free_user_data);
@@ -228,10 +263,10 @@ void closeScrnSel_Animation(lv_obj_t * TargetObject, int delay)
     PropertyAnimation_0_user_data->val = -1;
     lv_anim_t PropertyAnimation_0;
     lv_anim_init(&PropertyAnimation_0);
-    lv_anim_set_time(&PropertyAnimation_0, 1000);
+    lv_anim_set_time(&PropertyAnimation_0, 250);
     lv_anim_set_user_data(&PropertyAnimation_0, PropertyAnimation_0_user_data);
     lv_anim_set_custom_exec_cb(&PropertyAnimation_0, _ui_anim_callback_set_y);
-    lv_anim_set_values(&PropertyAnimation_0, 43, -50);
+    lv_anim_set_values(&PropertyAnimation_0, 43, -100);
     lv_anim_set_path_cb(&PropertyAnimation_0, lv_anim_path_linear);
     lv_anim_set_delay(&PropertyAnimation_0, delay + 0);
     lv_anim_set_deleted_cb(&PropertyAnimation_0, _ui_anim_callback_free_user_data);
@@ -270,6 +305,14 @@ void ui_event_btnToFaults(lv_event_t * e)
         _ui_screen_change(ui_scrnFaults, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0);
     }
 }
+void ui_event_btnToCan(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_screen_change(ui_scrnCanbus, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0);
+    }
+}
 void ui_event_ddNode(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
@@ -294,7 +337,7 @@ void ui_event_btnCanbus(lv_event_t * e)
         openCanbus(e);
     }
 }
-void ui_event_swchScrnSel(lv_event_t * e)
+void ui_event_swchScrnMain(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
@@ -305,7 +348,7 @@ void ui_event_swchScrnSel(lv_event_t * e)
         closeScrnSel_Animation(ui_pnlScrnSelMain, 0);
     }
     if(event_code == LV_EVENT_DEFOCUSED) {
-        _ui_state_modify(ui_swchScrnSel, LV_STATE_CHECKED, _UI_MODIFY_STATE_REMOVE);
+        _ui_state_modify(ui_swchScrnMain, LV_STATE_CHECKED, _UI_MODIFY_STATE_REMOVE);
         closeScrnSel_Animation(ui_pnlScrnSelMain, 0);
     }
 }
@@ -420,12 +463,20 @@ void ui_event_btnToMainManu(lv_event_t * e)
         _ui_screen_change(ui_scrnMain, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0);
     }
 }
-void ui_event_btnToFault(lv_event_t * e)
+void ui_event_btnToFltManu(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_screen_change(ui_scrnManu, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0);
+        _ui_screen_change(ui_scrnFaults, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0);
+    }
+}
+void ui_event_Button2(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_screen_change(ui_scrnCanbus, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0);
     }
 }
 void ui_event_ddNode1(lv_event_t * e)
@@ -436,7 +487,7 @@ void ui_event_ddNode1(lv_event_t * e)
         changeNode(e);
     }
 }
-void ui_event_swchScrnSel2(lv_event_t * e)
+void ui_event_swchScrnManu(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
@@ -447,7 +498,7 @@ void ui_event_swchScrnSel2(lv_event_t * e)
         closeScrnSel_Animation(ui_pnlScrnSelManu, 0);
     }
     if(event_code == LV_EVENT_DEFOCUSED) {
-        _ui_state_modify(ui_swchScrnSel2, LV_STATE_CHECKED, _UI_MODIFY_STATE_REMOVE);
+        _ui_state_modify(ui_swchScrnManu, LV_STATE_CHECKED, _UI_MODIFY_STATE_REMOVE);
         closeScrnSel_Animation(ui_pnlScrnSelManu, 0);
     }
 }
@@ -572,6 +623,53 @@ void ui_event_btnClearFlt(lv_event_t * e)
         clearFlts(e);
     }
 }
+void ui_event_btnToMainCan(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_screen_change(ui_scrnMain, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0);
+    }
+}
+void ui_event_btnToManuCan(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_screen_change(ui_scrnManu, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0);
+    }
+}
+void ui_event_btnToFltCan(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_screen_change(ui_scrnFaults, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0);
+    }
+}
+void ui_event_swchScrnCanbus(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_VALUE_CHANGED &&  lv_obj_has_state(target, LV_STATE_CHECKED)) {
+        openScrnSel_Animation(ui_pnlScrnSelCanbus, 0);
+    }
+    if(event_code == LV_EVENT_VALUE_CHANGED &&  !lv_obj_has_state(target, LV_STATE_CHECKED)) {
+        closeScrnSel_Animation(ui_pnlScrnSelCanbus, 0);
+    }
+    if(event_code == LV_EVENT_DEFOCUSED) {
+        _ui_state_modify(ui_swchScrnCanbus, LV_STATE_CHECKED, _UI_MODIFY_STATE_REMOVE);
+        closeScrnSel_Animation(ui_pnlScrnSelCanbus, 0);
+    }
+}
+void ui_event_sldrModeSel(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_VALUE_CHANGED) {
+        chngCanDisp(e);
+    }
+}
 
 ///////////////////// SCREENS ////////////////////
 
@@ -584,6 +682,7 @@ void ui_init(void)
     ui_scrnMain_screen_init();
     ui_scrnManu_screen_init();
     ui_scrnFaults_screen_init();
+    ui_scrnCanbus_screen_init();
     ui____initial_actions0 = lv_obj_create(NULL);
     lv_disp_load_scr(ui_scrnMain);
 }

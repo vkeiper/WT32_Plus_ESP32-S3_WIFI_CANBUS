@@ -1,6 +1,7 @@
 SET(SOURCES screens/ui_scrnMain.c
     screens/ui_scrnManu.c
     screens/ui_scrnFaults.c
+    screens/ui_scrnCanbus.c
     ui.c
     ui_helpers.c
     images/ui_img_wificon_png.c

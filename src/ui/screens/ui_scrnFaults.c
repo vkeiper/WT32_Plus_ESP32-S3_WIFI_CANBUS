@@ -14,9 +14,72 @@ void ui_scrnFaults_screen_init(void)
     lv_obj_set_style_bg_grad_color(ui_scrnFaults, lv_color_hex(0x2D323C), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_grad_dir(ui_scrnFaults, LV_GRAD_DIR_VER, LV_PART_MAIN | LV_STATE_DEFAULT);
 
+    ui_pnlSysFaults = lv_obj_create(ui_scrnFaults);
+    lv_obj_set_width(ui_pnlSysFaults, 466);
+    lv_obj_set_height(ui_pnlSysFaults, 256);
+    lv_obj_set_x(ui_pnlSysFaults, 7);
+    lv_obj_set_y(ui_pnlSysFaults, 55);
+    lv_obj_clear_flag(ui_pnlSysFaults, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_obj_set_style_radius(ui_pnlSysFaults, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_pnlSysFaults, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_pnlSysFaults, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_color(ui_pnlSysFaults, lv_color_hex(0x202226), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_opa(ui_pnlSysFaults, 155, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_color(ui_pnlSysFaults, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_opa(ui_pnlSysFaults, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_width(ui_pnlSysFaults, 5, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_spread(ui_pnlSysFaults, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_left(ui_pnlSysFaults, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_right(ui_pnlSysFaults, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_top(ui_pnlSysFaults, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_bottom(ui_pnlSysFaults, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_pnlSysFaultsHdr = lv_obj_create(ui_pnlSysFaults);
+    lv_obj_set_width(ui_pnlSysFaultsHdr, lv_pct(100));
+    lv_obj_set_height(ui_pnlSysFaultsHdr, lv_pct(13));
+    lv_obj_clear_flag(ui_pnlSysFaultsHdr, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_obj_set_style_radius(ui_pnlSysFaultsHdr, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_pnlSysFaultsHdr, lv_color_hex(0x545A66), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_pnlSysFaultsHdr, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_grad_color(ui_pnlSysFaultsHdr, lv_color_hex(0x6D6E77), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_grad_dir(ui_pnlSysFaultsHdr, LV_GRAD_DIR_VER, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_color(ui_pnlSysFaultsHdr, lv_color_hex(0x313131), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_opa(ui_pnlSysFaultsHdr, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_side(ui_pnlSysFaultsHdr, LV_BORDER_SIDE_BOTTOM, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_lblSysFltHdr = lv_label_create(ui_pnlSysFaultsHdr);
+    lv_obj_set_width(ui_lblSysFltHdr, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_lblSysFltHdr, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_align(ui_lblSysFltHdr, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_lblSysFltHdr, "System Faults");
+    lv_obj_set_style_text_color(ui_lblSysFltHdr, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_lblSysFltHdr, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_align(ui_lblSysFltHdr, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_lblSysFltHdr, &lv_font_montserrat_14, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_pnlSysFaultsBody = lv_obj_create(ui_pnlSysFaults);
+    lv_obj_set_width(ui_pnlSysFaultsBody, lv_pct(100));
+    lv_obj_set_height(ui_pnlSysFaultsBody, lv_pct(87));
+    lv_obj_set_x(ui_pnlSysFaultsBody, 0);
+    lv_obj_set_y(ui_pnlSysFaultsBody, lv_pct(13));
+    lv_obj_set_align(ui_pnlSysFaultsBody, LV_ALIGN_TOP_MID);
+    lv_obj_set_style_radius(ui_pnlSysFaultsBody, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_pnlSysFaultsBody, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_pnlSysFaultsBody, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_color(ui_pnlSysFaultsBody, lv_color_hex(0x202226), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_border_opa(ui_pnlSysFaultsBody, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_color(ui_pnlSysFaultsBody, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_opa(ui_pnlSysFaultsBody, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_width(ui_pnlSysFaultsBody, 5, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_spread(ui_pnlSysFaultsBody, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_left(ui_pnlSysFaultsBody, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_right(ui_pnlSysFaultsBody, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_top(ui_pnlSysFaultsBody, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_bottom(ui_pnlSysFaultsBody, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+
     ui_pnlScrnSelFlt = lv_obj_create(ui_scrnFaults);
     lv_obj_set_width(ui_pnlScrnSelFlt, 140);
-    lv_obj_set_height(ui_pnlScrnSelFlt, 90);
+    lv_obj_set_height(ui_pnlScrnSelFlt, 135);
     lv_obj_set_x(ui_pnlScrnSelFlt, 0);
     lv_obj_set_y(ui_pnlScrnSelFlt, -100);
     lv_obj_clear_flag(ui_pnlScrnSelFlt, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
@@ -43,7 +106,7 @@ void ui_scrnFaults_screen_init(void)
 
     ui_btnToMainFlt = lv_btn_create(ui_pnlScrnSelFlt);
     lv_obj_set_width(ui_btnToMainFlt, lv_pct(100));
-    lv_obj_set_height(ui_btnToMainFlt, lv_pct(50));
+    lv_obj_set_height(ui_btnToMainFlt, lv_pct(33));
     lv_obj_add_flag(ui_btnToMainFlt, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
     lv_obj_clear_flag(ui_btnToMainFlt, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_obj_set_style_radius(ui_btnToMainFlt, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -60,9 +123,9 @@ void ui_scrnFaults_screen_init(void)
 
     ui_btnToManuFlt = lv_btn_create(ui_pnlScrnSelFlt);
     lv_obj_set_width(ui_btnToManuFlt, lv_pct(100));
-    lv_obj_set_height(ui_btnToManuFlt, lv_pct(50));
+    lv_obj_set_height(ui_btnToManuFlt, lv_pct(33));
     lv_obj_set_x(ui_btnToManuFlt, lv_pct(0));
-    lv_obj_set_y(ui_btnToManuFlt, lv_pct(50));
+    lv_obj_set_y(ui_btnToManuFlt, lv_pct(33));
     lv_obj_add_flag(ui_btnToManuFlt, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
     lv_obj_clear_flag(ui_btnToManuFlt, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_obj_set_style_radius(ui_btnToManuFlt, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -139,90 +202,6 @@ void ui_scrnFaults_screen_init(void)
     lv_obj_set_align(ui_lblClrFlts, LV_ALIGN_CENTER);
     lv_label_set_text(ui_lblClrFlts, "Clear Log");
     lv_obj_set_style_text_font(ui_lblClrFlts, &lv_font_montserrat_16, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_pnlSysFaults = lv_obj_create(ui_scrnFaults);
-    lv_obj_set_width(ui_pnlSysFaults, 466);
-    lv_obj_set_height(ui_pnlSysFaults, 256);
-    lv_obj_set_x(ui_pnlSysFaults, 7);
-    lv_obj_set_y(ui_pnlSysFaults, 55);
-    lv_obj_clear_flag(ui_pnlSysFaults, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_obj_set_style_radius(ui_pnlSysFaults, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(ui_pnlSysFaults, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_pnlSysFaults, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_color(ui_pnlSysFaults, lv_color_hex(0x202226), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_opa(ui_pnlSysFaults, 155, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_shadow_color(ui_pnlSysFaults, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_shadow_opa(ui_pnlSysFaults, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_shadow_width(ui_pnlSysFaults, 5, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_shadow_spread(ui_pnlSysFaults, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_left(ui_pnlSysFaults, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_right(ui_pnlSysFaults, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_top(ui_pnlSysFaults, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_bottom(ui_pnlSysFaults, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_pnlSysFaultsHdr = lv_obj_create(ui_pnlSysFaults);
-    lv_obj_set_width(ui_pnlSysFaultsHdr, lv_pct(100));
-    lv_obj_set_height(ui_pnlSysFaultsHdr, lv_pct(13));
-    lv_obj_clear_flag(ui_pnlSysFaultsHdr, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_obj_set_style_radius(ui_pnlSysFaultsHdr, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(ui_pnlSysFaultsHdr, lv_color_hex(0x545A66), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_pnlSysFaultsHdr, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_grad_color(ui_pnlSysFaultsHdr, lv_color_hex(0x6D6E77), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_grad_dir(ui_pnlSysFaultsHdr, LV_GRAD_DIR_VER, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_color(ui_pnlSysFaultsHdr, lv_color_hex(0x313131), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_opa(ui_pnlSysFaultsHdr, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_side(ui_pnlSysFaultsHdr, LV_BORDER_SIDE_BOTTOM, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_lblSysFltHdr = lv_label_create(ui_pnlSysFaultsHdr);
-    lv_obj_set_width(ui_lblSysFltHdr, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_lblSysFltHdr, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_align(ui_lblSysFltHdr, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_lblSysFltHdr, "System Faults");
-    lv_obj_set_style_text_color(ui_lblSysFltHdr, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_lblSysFltHdr, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_align(ui_lblSysFltHdr, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_lblSysFltHdr, &lv_font_montserrat_14, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_pnlSysFaultsBody = lv_obj_create(ui_pnlSysFaults);
-    lv_obj_set_width(ui_pnlSysFaultsBody, lv_pct(100));
-    lv_obj_set_height(ui_pnlSysFaultsBody, lv_pct(87));
-    lv_obj_set_x(ui_pnlSysFaultsBody, 0);
-    lv_obj_set_y(ui_pnlSysFaultsBody, lv_pct(13));
-    lv_obj_set_align(ui_pnlSysFaultsBody, LV_ALIGN_TOP_MID);
-    lv_obj_set_style_radius(ui_pnlSysFaultsBody, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(ui_pnlSysFaultsBody, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_pnlSysFaultsBody, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_color(ui_pnlSysFaultsBody, lv_color_hex(0x202226), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_opa(ui_pnlSysFaultsBody, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_shadow_color(ui_pnlSysFaultsBody, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_shadow_opa(ui_pnlSysFaultsBody, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_shadow_width(ui_pnlSysFaultsBody, 5, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_shadow_spread(ui_pnlSysFaultsBody, 2, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_left(ui_pnlSysFaultsBody, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_right(ui_pnlSysFaultsBody, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_top(ui_pnlSysFaultsBody, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_bottom(ui_pnlSysFaultsBody, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_tblFlt = lv_table_create(ui_pnlSysFaultsBody);
-    lv_obj_set_width(ui_tblFlt, lv_pct(100));
-    lv_obj_set_height(ui_tblFlt, lv_pct(100));
-    lv_obj_set_align(ui_tblFlt, LV_ALIGN_TOP_LEFT);
-    lv_obj_set_style_bg_color(ui_tblFlt, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_tblFlt, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_left(ui_tblFlt, 1, LV_PART_ITEMS | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_right(ui_tblFlt, 1, LV_PART_ITEMS | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_top(ui_tblFlt, 1, LV_PART_ITEMS | LV_STATE_DEFAULT);
-    lv_obj_set_style_pad_bottom(ui_tblFlt, 1, LV_PART_ITEMS | LV_STATE_DEFAULT);
-    lv_table_set_cell_value(ui_tblFlt, 0, 0, "0x0010");
-    lv_table_set_cell_value(ui_tblFlt, 0, 1, "12:58");
-    lv_table_set_cell_value(ui_tblFlt, 0, 2, "SLFT-RMP_<AMPS");
-    lv_table_set_cell_value(ui_tblFlt, 0, 3, "Self Test Circuit Test REFCELL4 Failed (did not = precision voltage) ");
-    lv_table_set_cell_value(ui_tblFlt, 1, 0, "Name");
-    lv_table_set_col_width(ui_tblFlt, 0, 55);
-    lv_table_set_col_width(ui_tblFlt, 1, 45);
-    lv_table_set_col_width(ui_tblFlt, 2, 140);
-    lv_table_set_col_width(ui_tblFlt, 3, 217);
-
 
     lv_obj_add_event_cb(ui_btnToMainFlt, ui_event_btnToMainFlt, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_btnToManuFlt, ui_event_btnToManuFlt, LV_EVENT_ALL, NULL);

@@ -23,6 +23,7 @@ void enableRCShaft3(lv_event_t * e);
 void enableRCShaft4(lv_event_t * e);
 void enableRC4(lv_event_t * e);
 void clearFlts(lv_event_t * e);
+void chngCanDisp(lv_event_t * e);
 
 #ifdef __cplusplus
 } /*extern "C"*/

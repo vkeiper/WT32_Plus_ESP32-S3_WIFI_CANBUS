@@ -5,27 +5,7 @@
 
 #include "ui.h"
 
-void nodeSelect(lv_event_t * e)
-{
-	// Your code here
-}
-
-void chngScrn(lv_event_t * e)
-{
-	// Your code here
-}
-
 void tglOutput(lv_event_t * e)
-{
-	// Your code here
-}
-
-void connectWifi(lv_event_t * e)
-{
-	// Your code here
-}
-
-void openKeyboard(lv_event_t * e)
 {
 	// Your code here
 }
@@ -36,6 +16,11 @@ void changeNode(lv_event_t * e)
 }
 
 void openCanbus(lv_event_t * e)
+{
+	// Your code here
+}
+
+void connectWifi(lv_event_t * e)
 {
 	// Your code here
 }
@@ -76,6 +61,11 @@ void enableRC4(lv_event_t * e)
 }
 
 void clearFlts(lv_event_t * e)
+{
+	// Your code here
+}
+
+void chngCanDisp(lv_event_t * e)
 {
 	// Your code here
 }
