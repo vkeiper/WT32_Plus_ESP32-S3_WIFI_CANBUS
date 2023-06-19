@@ -63,7 +63,7 @@ void ui_scrnCanbus_screen_init(void)
     lv_obj_set_style_text_font(ui_lblCanRxHdr, &lv_font_montserrat_14, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_pnlCanRxBody = lv_obj_create(ui_pnlCanRx);
-    lv_obj_set_height(ui_pnlCanRxBody, 105);
+    lv_obj_set_height(ui_pnlCanRxBody, lv_pct(100));
     lv_obj_set_width(ui_pnlCanRxBody, lv_pct(100));
     lv_obj_set_x(ui_pnlCanRxBody, 0);
     lv_obj_set_y(ui_pnlCanRxBody, 26);
@@ -293,7 +293,7 @@ void ui_scrnCanbus_screen_init(void)
     lv_obj_set_style_text_font(ui_lblCanTxHdr, &lv_font_montserrat_14, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_pnlCanTxBody = lv_obj_create(ui_pnlCanTx);
-    lv_obj_set_height(ui_pnlCanTxBody, 105);
+    lv_obj_set_height(ui_pnlCanTxBody, lv_pct(100));
     lv_obj_set_width(ui_pnlCanTxBody, lv_pct(100));
     lv_obj_set_x(ui_pnlCanTxBody, 0);
     lv_obj_set_y(ui_pnlCanTxBody, 26);
@@ -311,6 +311,63 @@ void ui_scrnCanbus_screen_init(void)
     lv_obj_set_style_pad_right(ui_pnlCanTxBody, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_top(ui_pnlCanTxBody, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_bottom(ui_pnlCanTxBody, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+
+    ui_tblCanRx = lv_table_create(ui_pnlCanRxBody);
+    lv_obj_set_width(ui_tblCanRx, lv_pct(100));
+    lv_obj_set_height(ui_tblCanRx, lv_pct(100));
+    lv_obj_set_align(ui_tblCanRx, LV_ALIGN_TOP_LEFT);
+    lv_obj_set_style_bg_color(ui_tblCanRx, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_tblCanRx, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_left(ui_tblCanRx, 1, LV_PART_ITEMS | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_right(ui_tblCanRx, 1, LV_PART_ITEMS | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_top(ui_tblCanRx, 1, LV_PART_ITEMS | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_bottom(ui_tblCanRx, 1, LV_PART_ITEMS | LV_STATE_DEFAULT);
+    lv_table_set_cell_value(ui_tblCanRx, 0, 0, "CAN ID");
+    lv_table_set_cell_value(ui_tblCanRx, 0, 1, "DATA");
+    lv_table_set_cell_value(ui_tblCanRx, 0, 2, "CYCLE TIME");
+    lv_table_set_cell_value(ui_tblCanRx, 0, 3, "COUNT");
+    lv_table_set_cell_value(ui_tblCanRx, 1, 0, "0000103A");
+    lv_table_set_cell_value(ui_tblCanRx, 1, 1, "00 00 00 00 00 00 00 00");
+    lv_table_set_cell_value(ui_tblCanRx, 1, 2, "1000");
+    lv_table_set_cell_value(ui_tblCanRx, 1, 3, "119");
+    lv_table_set_cell_value(ui_tblCanRx, 2, 0, "0000103A");
+    lv_table_set_cell_value(ui_tblCanRx, 2, 1, "00 00 00 00 00 00 00 00");
+    lv_table_set_cell_value(ui_tblCanRx, 2, 2, "1000");
+    lv_table_set_cell_value(ui_tblCanRx, 2, 3, "119");
+    lv_table_set_col_width(ui_tblCanRx, 0, 74);
+    lv_table_set_col_width(ui_tblCanRx, 1, 174);
+    lv_table_set_col_width(ui_tblCanRx, 2, 38);
+    lv_table_set_col_width(ui_tblCanRx, 3, 38);
+
+
+    ui_tblCanTx = lv_table_create(ui_pnlCanTxBody);
+    lv_obj_set_width(ui_tblCanTx, lv_pct(100));
+    lv_obj_set_height(ui_tblCanTx, lv_pct(100));
+    lv_obj_set_align(ui_tblCanTx, LV_ALIGN_TOP_LEFT);
+    lv_obj_set_style_bg_color(ui_tblCanTx, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_tblCanTx, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_left(ui_tblCanTx, 1, LV_PART_ITEMS | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_right(ui_tblCanTx, 1, LV_PART_ITEMS | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_top(ui_tblCanTx, 1, LV_PART_ITEMS | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_bottom(ui_tblCanTx, 1, LV_PART_ITEMS | LV_STATE_DEFAULT);
+    lv_table_set_cell_value(ui_tblCanTx, 0, 0, "CAN ID");
+    lv_table_set_cell_value(ui_tblCanTx, 0, 1, "DATA");
+    lv_table_set_cell_value(ui_tblCanTx, 0, 2, "CYCLE TIME");
+    lv_table_set_cell_value(ui_tblCanTx, 0, 3, "COUNT");
+    lv_table_set_cell_value(ui_tblCanTx, 1, 0, "0000103A");
+    lv_table_set_cell_value(ui_tblCanTx, 1, 1, "00 00 00 00 00 00 00 00");
+    lv_table_set_cell_value(ui_tblCanTx, 1, 2, "1000");
+    lv_table_set_cell_value(ui_tblCanTx, 1, 3, "119");
+    lv_table_set_cell_value(ui_tblCanTx, 2, 0, "0000103A");
+    lv_table_set_cell_value(ui_tblCanTx, 2, 1, "00 00 00 00 00 00 00 00");
+    lv_table_set_cell_value(ui_tblCanTx, 2, 2, "1000");
+    lv_table_set_cell_value(ui_tblCanTx, 2, 3, "119");
+    lv_table_set_col_width(ui_tblCanTx, 0, 74);
+    lv_table_set_col_width(ui_tblCanTx, 1, 174);
+    lv_table_set_col_width(ui_tblCanTx, 2, 38);
+    lv_table_set_col_width(ui_tblCanTx, 3, 38);
+
 
     lv_obj_add_event_cb(ui_btnToMainCan, ui_event_btnToMainCan, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_btnToManuCan, ui_event_btnToManuCan, LV_EVENT_ALL, NULL);

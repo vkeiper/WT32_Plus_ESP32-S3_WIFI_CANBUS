@@ -4,7 +4,6 @@ SET(SOURCES screens/ui_scrnMain.c
     screens/ui_scrnCanbus.c
     ui.c
     ui_helpers.c
-    ui_events.c
     images/ui_img_wificon_png.c
     images/ui_img_hamburger_png.c
     fonts/ui_font_seg7Big.c

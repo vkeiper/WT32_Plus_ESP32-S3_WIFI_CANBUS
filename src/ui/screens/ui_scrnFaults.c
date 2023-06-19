@@ -222,6 +222,26 @@ void ui_scrnFaults_screen_init(void)
     lv_label_set_text(ui_lblClrFlts, "Clear Log");
     lv_obj_set_style_text_font(ui_lblClrFlts, &lv_font_montserrat_16, LV_PART_MAIN | LV_STATE_DEFAULT);
 
+    ui_tblFlt = lv_table_create(ui_pnlSysFaultsBody);
+    lv_obj_set_width(ui_tblFlt, lv_pct(100));
+    lv_obj_set_height(ui_tblFlt, lv_pct(100));
+    lv_obj_set_align(ui_tblFlt, LV_ALIGN_TOP_LEFT);
+    lv_obj_set_style_bg_color(ui_tblFlt, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_tblFlt, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_left(ui_tblFlt, 1, LV_PART_ITEMS | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_right(ui_tblFlt, 1, LV_PART_ITEMS | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_top(ui_tblFlt, 1, LV_PART_ITEMS | LV_STATE_DEFAULT);
+    lv_obj_set_style_pad_bottom(ui_tblFlt, 1, LV_PART_ITEMS | LV_STATE_DEFAULT);
+    lv_table_set_cell_value(ui_tblFlt, 0, 0, "0x0010");
+    lv_table_set_cell_value(ui_tblFlt, 0, 1, "12:58");
+    lv_table_set_cell_value(ui_tblFlt, 0, 2, "SLFT-RMP_<AMPS");
+    lv_table_set_cell_value(ui_tblFlt, 0, 3, "Self Test Circuit Test REFCELL4 Failed (did not = precision voltage) ");
+    lv_table_set_cell_value(ui_tblFlt, 1, 0, "Name");
+    lv_table_set_col_width(ui_tblFlt, 0, 55);
+    lv_table_set_col_width(ui_tblFlt, 1, 45);
+    lv_table_set_col_width(ui_tblFlt, 2, 140);
+    lv_table_set_col_width(ui_tblFlt, 3, 217);
+
     lv_obj_add_event_cb(ui_btnToMainFlt, ui_event_btnToMainFlt, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_btnToManuFlt, ui_event_btnToManuFlt, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_btnToCanFlt, ui_event_btnToCanFlt, LV_EVENT_ALL, NULL);

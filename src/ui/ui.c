@@ -194,6 +194,7 @@ lv_obj_t * ui_swchScrnFlt;
 void ui_event_btnClearFlt(lv_event_t * e);
 lv_obj_t * ui_btnClearFlt;
 lv_obj_t * ui_lblClrFlts;
+lv_obj_t * ui_tblFlt;
 
 // SCREEN: ui_scrnCanbus
 void ui_scrnCanbus_screen_init(void);
@@ -224,6 +225,8 @@ lv_obj_t * ui_pnlCanTx;
 lv_obj_t * ui_pnlCanTxHdr;
 lv_obj_t * ui_lblCanTxHdr;
 lv_obj_t * ui_pnlCanTxBody;
+lv_obj_t * ui_tblCanRx;
+lv_obj_t * ui_tblCanTx;
 lv_obj_t * ui____initial_actions0;
 
 ///////////////////// TEST LVGL SETTINGS ////////////////////

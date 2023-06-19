@@ -15,11 +15,6 @@ void changeNode(lv_event_t * e)
 	// Your code here
 }
 
-void openCanbus(lv_event_t * e)
-{
-	// Your code here
-}
-
 void connectWifi(lv_event_t * e)
 {
 	// Your code here
@@ -67,6 +62,29 @@ void clearFlts(lv_event_t * e)
 
 void chngCanDisp(lv_event_t * e)
 {
+	lv_obj_t * slider = lv_event_get_target(e);
+	int sldrVal = (int)lv_slider_get_value(slider);
 
-
+	if(sldrVal == 0){
+		lv_obj_set_height(ui_pnlCanRx, 265);
+		lv_obj_set_y(ui_pnlCanRx, 50);
+		lv_obj_set_y(ui_pnlCanTx, 330);
+		lv_obj_set_height(ui_tblCanRx, 265);
+		lv_obj_set_height(ui_tblCanTx, 265);
+	}
+	if(sldrVal == 1){		
+		lv_obj_set_height(ui_pnlCanRx, 130);
+		lv_obj_set_y(ui_pnlCanRx, 50);
+		lv_obj_set_height(ui_pnlCanTx, 130);
+		lv_obj_set_y(ui_pnlCanTx, 185);
+		lv_obj_set_height(ui_tblCanRx, 265);
+		lv_obj_set_height(ui_tblCanTx, 265);
+	}
+	if(sldrVal == 2){
+		lv_obj_set_height(ui_pnlCanTx, 265);
+		lv_obj_set_y(ui_pnlCanTx, 50);
+		lv_obj_set_y(ui_pnlCanRx, 330);
+		lv_obj_set_height(ui_tblCanRx, 265);
+		lv_obj_set_height(ui_tblCanTx, 265);
+	}
 }

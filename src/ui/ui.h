@@ -238,6 +238,9 @@ extern lv_obj_t * ui_pnlCanTxHdr;
 extern lv_obj_t * ui_lblCanTxHdr;
 extern lv_obj_t * ui_pnlCanTxBody;
 extern lv_obj_t * ui____initial_actions0;
+extern lv_obj_t * ui_tblFlt;
+extern lv_obj_t * ui_tblCanRx;
+extern lv_obj_t * ui_tblCanTx;
 
 LV_IMG_DECLARE(ui_img_wificon_png);    // assets\Wificon.png
 LV_IMG_DECLARE(ui_img_hamburger_png);    // assets\Hamburger.png
