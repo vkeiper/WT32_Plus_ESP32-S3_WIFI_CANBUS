@@ -12,7 +12,6 @@ extern "C" {
 
 void tglOutput(lv_event_t * e);
 void changeNode(lv_event_t * e);
-void openCanbus(lv_event_t * e);
 void connectWifi(lv_event_t * e);
 void wrSetPoints(lv_event_t * e);
 void changeNode(lv_event_t * e);

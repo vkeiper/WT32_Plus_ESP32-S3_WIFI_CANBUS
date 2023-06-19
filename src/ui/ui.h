@@ -56,17 +56,15 @@ extern lv_obj_t * ui_lblToManual;
 void ui_event_btnToFaults(lv_event_t * e);
 extern lv_obj_t * ui_btnToFaults;
 extern lv_obj_t * ui_lblToFaults;
-void ui_event_btnToCan(lv_event_t * e);
-extern lv_obj_t * ui_btnToCan;
-extern lv_obj_t * ui_lblToCan;
+void ui_event_btnToCanbus(lv_event_t * e);
+extern lv_obj_t * ui_btnToCanbus;
+extern lv_obj_t * ui_lblToCanbus;
 extern lv_obj_t * ui_pnlHdr;
 extern lv_obj_t * ui_lblHdr;
 void ui_event_ddNode(lv_event_t * e);
 extern lv_obj_t * ui_ddNode;
 void ui_event_btnWifi(lv_event_t * e);
 extern lv_obj_t * ui_btnWifi;
-void ui_event_btnCanbus(lv_event_t * e);
-extern lv_obj_t * ui_btnCanbus;
 void ui_event_swchScrnMain(lv_event_t * e);
 extern lv_obj_t * ui_swchScrnMain;
 extern lv_obj_t * ui_pnlCm;
@@ -138,9 +136,9 @@ extern lv_obj_t * ui_lblToMainManu;
 void ui_event_btnToFltManu(lv_event_t * e);
 extern lv_obj_t * ui_btnToFltManu;
 extern lv_obj_t * ui_lblToFltManu;
-void ui_event_Button2(lv_event_t * e);
-extern lv_obj_t * ui_Button2;
-extern lv_obj_t * ui_Label2;
+void ui_event_btnToCanbusManu(lv_event_t * e);
+extern lv_obj_t * ui_btnToCanbusManu;
+extern lv_obj_t * ui_lblToCanbusManu;
 extern lv_obj_t * ui_pnlHdrManual;
 extern lv_obj_t * ui_lblHdr1;
 void ui_event_ddNode1(lv_event_t * e);
@@ -200,6 +198,9 @@ extern lv_obj_t * ui_lblToMainFlt;
 void ui_event_btnToManuFlt(lv_event_t * e);
 extern lv_obj_t * ui_btnToManuFlt;
 extern lv_obj_t * ui_lblToManuFlt;
+void ui_event_btnToCanFlt(lv_event_t * e);
+extern lv_obj_t * ui_btnToCanFlt;
+extern lv_obj_t * ui_lblToCanFlt;
 extern lv_obj_t * ui_pnlHdrFlt;
 extern lv_obj_t * ui_lblHdrFlt;
 void ui_event_swchScrnFlt(lv_event_t * e);
@@ -239,7 +240,6 @@ extern lv_obj_t * ui_pnlCanTxBody;
 extern lv_obj_t * ui____initial_actions0;
 
 LV_IMG_DECLARE(ui_img_wificon_png);    // assets\Wificon.png
-LV_IMG_DECLARE(ui_img_canbus_png);    // assets\canbus.png
 LV_IMG_DECLARE(ui_img_hamburger_png);    // assets\Hamburger.png
 
 LV_FONT_DECLARE(ui_font_seg7Big);

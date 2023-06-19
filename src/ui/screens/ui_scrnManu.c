@@ -212,8 +212,8 @@ void ui_scrnManu_screen_init(void)
     ui_pnlScrnSelManu = lv_obj_create(ui_scrnManu);
     lv_obj_set_width(ui_pnlScrnSelManu, 140);
     lv_obj_set_height(ui_pnlScrnSelManu, 135);
-    lv_obj_set_x(ui_pnlScrnSelManu, 51);
-    lv_obj_set_y(ui_pnlScrnSelManu, 33);
+    lv_obj_set_x(ui_pnlScrnSelManu, 0);
+    lv_obj_set_y(ui_pnlScrnSelManu, -100);
     lv_obj_clear_flag(ui_pnlScrnSelManu, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_obj_set_style_radius(ui_pnlScrnSelManu, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui_pnlScrnSelManu, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -272,23 +272,24 @@ void ui_scrnManu_screen_init(void)
     lv_obj_set_align(ui_lblToFltManu, LV_ALIGN_LEFT_MID);
     lv_label_set_text(ui_lblToFltManu, "Faults");
 
-    ui_Button2 = lv_btn_create(ui_pnlScrnSelManu);
-    lv_obj_set_width(ui_Button2, lv_pct(100));
-    lv_obj_set_height(ui_Button2, lv_pct(33));
-    lv_obj_set_x(ui_Button2, 0);
-    lv_obj_set_y(ui_Button2, lv_pct(66));
-    lv_obj_add_flag(ui_Button2, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
-    lv_obj_clear_flag(ui_Button2, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_obj_set_style_bg_color(ui_Button2, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_Button2, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_shadow_color(ui_Button2, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_shadow_opa(ui_Button2, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    ui_btnToCanbusManu = lv_btn_create(ui_pnlScrnSelManu);
+    lv_obj_set_width(ui_btnToCanbusManu, lv_pct(100));
+    lv_obj_set_height(ui_btnToCanbusManu, lv_pct(33));
+    lv_obj_set_x(ui_btnToCanbusManu, lv_pct(0));
+    lv_obj_set_y(ui_btnToCanbusManu, lv_pct(66));
+    lv_obj_add_flag(ui_btnToCanbusManu, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
+    lv_obj_clear_flag(ui_btnToCanbusManu, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_obj_set_style_radius(ui_btnToCanbusManu, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_btnToCanbusManu, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_btnToCanbusManu, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_color(ui_btnToCanbusManu, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_opa(ui_btnToCanbusManu, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_Label2 = lv_label_create(ui_Button2);
-    lv_obj_set_width(ui_Label2, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_Label2, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_align(ui_Label2, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_Label2, "CANbus");
+    ui_lblToCanbusManu = lv_label_create(ui_btnToCanbusManu);
+    lv_obj_set_width(ui_lblToCanbusManu, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_lblToCanbusManu, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_align(ui_lblToCanbusManu, LV_ALIGN_LEFT_MID);
+    lv_label_set_text(ui_lblToCanbusManu, "CANbus");
 
     ui_pnlHdrManual = lv_obj_create(ui_scrnManu);
     lv_obj_set_height(ui_pnlHdrManual, 46);
@@ -717,7 +718,7 @@ void ui_scrnManu_screen_init(void)
     lv_obj_add_event_cb(ui_btnMspAuto, ui_event_btnMspAuto, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_btnToMainManu, ui_event_btnToMainManu, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_btnToFltManu, ui_event_btnToFltManu, LV_EVENT_ALL, NULL);
-    lv_obj_add_event_cb(ui_Button2, ui_event_Button2, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_btnToCanbusManu, ui_event_btnToCanbusManu, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_ddNode1, ui_event_ddNode1, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_swchScrnManu, ui_event_swchScrnManu, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_chkRC1, ui_event_chkRC1, LV_EVENT_ALL, NULL);

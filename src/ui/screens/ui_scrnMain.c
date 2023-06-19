@@ -301,24 +301,24 @@ void ui_scrnMain_screen_init(void)
     lv_obj_set_align(ui_lblToFaults, LV_ALIGN_LEFT_MID);
     lv_label_set_text(ui_lblToFaults, "Faults");
 
-    ui_btnToCan = lv_btn_create(ui_pnlScrnSelMain);
-    lv_obj_set_width(ui_btnToCan, lv_pct(100));
-    lv_obj_set_height(ui_btnToCan, lv_pct(33));
-    lv_obj_set_x(ui_btnToCan, lv_pct(0));
-    lv_obj_set_y(ui_btnToCan, lv_pct(66));
-    lv_obj_add_flag(ui_btnToCan, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
-    lv_obj_clear_flag(ui_btnToCan, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_obj_set_style_radius(ui_btnToCan, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(ui_btnToCan, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_btnToCan, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_shadow_color(ui_btnToCan, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_shadow_opa(ui_btnToCan, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    ui_btnToCanbus = lv_btn_create(ui_pnlScrnSelMain);
+    lv_obj_set_width(ui_btnToCanbus, lv_pct(100));
+    lv_obj_set_height(ui_btnToCanbus, lv_pct(33));
+    lv_obj_set_x(ui_btnToCanbus, lv_pct(0));
+    lv_obj_set_y(ui_btnToCanbus, lv_pct(66));
+    lv_obj_add_flag(ui_btnToCanbus, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
+    lv_obj_clear_flag(ui_btnToCanbus, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_obj_set_style_radius(ui_btnToCanbus, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_btnToCanbus, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_btnToCanbus, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_color(ui_btnToCanbus, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_opa(ui_btnToCanbus, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_lblToCan = lv_label_create(ui_btnToCan);
-    lv_obj_set_width(ui_lblToCan, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_lblToCan, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_align(ui_lblToCan, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_lblToCan, "CANbus");
+    ui_lblToCanbus = lv_label_create(ui_btnToCanbus);
+    lv_obj_set_width(ui_lblToCanbus, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_lblToCanbus, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_align(ui_lblToCanbus, LV_ALIGN_LEFT_MID);
+    lv_label_set_text(ui_lblToCanbus, "CANbus");
 
     ui_pnlHdr = lv_obj_create(ui_scrnMain);
     lv_obj_set_height(ui_pnlHdr, 46);
@@ -379,14 +379,6 @@ void ui_scrnMain_screen_init(void)
     lv_obj_set_style_img_recolor(ui_btnWifi, lv_color_hex(0x0AD100), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_img_recolor_opa(ui_btnWifi, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_radius(ui_btnWifi, 0, LV_PART_MAIN | LV_STATE_PRESSED);
-
-    ui_btnCanbus = lv_imgbtn_create(ui_pnlHdr);
-    lv_imgbtn_set_src(ui_btnCanbus, LV_IMGBTN_STATE_RELEASED, NULL, &ui_img_canbus_png, NULL);
-    lv_obj_set_width(ui_btnCanbus, 46);
-    lv_obj_set_height(ui_btnCanbus, 40);
-    lv_obj_set_x(ui_btnCanbus, 142);
-    lv_obj_set_y(ui_btnCanbus, 0);
-    lv_obj_set_align(ui_btnCanbus, LV_ALIGN_CENTER);
 
     ui_swchScrnMain = lv_switch_create(ui_pnlHdr);
     lv_obj_set_width(ui_swchScrnMain, 40);
@@ -767,10 +759,9 @@ void ui_scrnMain_screen_init(void)
     lv_obj_add_event_cb(ui_btnOutput, ui_event_btnOutput, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_btnToManual, ui_event_btnToManual, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_btnToFaults, ui_event_btnToFaults, LV_EVENT_ALL, NULL);
-    lv_obj_add_event_cb(ui_btnToCan, ui_event_btnToCan, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_btnToCanbus, ui_event_btnToCanbus, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_ddNode, ui_event_ddNode, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_btnWifi, ui_event_btnWifi, LV_EVENT_ALL, NULL);
-    lv_obj_add_event_cb(ui_btnCanbus, ui_event_btnCanbus, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_swchScrnMain, ui_event_swchScrnMain, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_txtaPass, ui_event_txtaPass, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_btnWifiConnect, ui_event_btnWifiConnect, LV_EVENT_ALL, NULL);

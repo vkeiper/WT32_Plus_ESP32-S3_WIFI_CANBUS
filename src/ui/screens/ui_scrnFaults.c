@@ -140,6 +140,25 @@ void ui_scrnFaults_screen_init(void)
     lv_obj_set_align(ui_lblToManuFlt, LV_ALIGN_LEFT_MID);
     lv_label_set_text(ui_lblToManuFlt, "Manual");
 
+    ui_btnToCanFlt = lv_btn_create(ui_pnlScrnSelFlt);
+    lv_obj_set_width(ui_btnToCanFlt, lv_pct(100));
+    lv_obj_set_height(ui_btnToCanFlt, lv_pct(33));
+    lv_obj_set_x(ui_btnToCanFlt, lv_pct(0));
+    lv_obj_set_y(ui_btnToCanFlt, lv_pct(66));
+    lv_obj_add_flag(ui_btnToCanFlt, LV_OBJ_FLAG_SCROLL_ON_FOCUS);     /// Flags
+    lv_obj_clear_flag(ui_btnToCanFlt, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_obj_set_style_radius(ui_btnToCanFlt, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_btnToCanFlt, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_btnToCanFlt, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_color(ui_btnToCanFlt, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_shadow_opa(ui_btnToCanFlt, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_lblToCanFlt = lv_label_create(ui_btnToCanFlt);
+    lv_obj_set_width(ui_lblToCanFlt, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_lblToCanFlt, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_align(ui_lblToCanFlt, LV_ALIGN_LEFT_MID);
+    lv_label_set_text(ui_lblToCanFlt, "CANbus");
+
     ui_pnlHdrFlt = lv_obj_create(ui_scrnFaults);
     lv_obj_set_height(ui_pnlHdrFlt, 46);
     lv_obj_set_width(ui_pnlHdrFlt, lv_pct(100));
@@ -205,6 +224,7 @@ void ui_scrnFaults_screen_init(void)
 
     lv_obj_add_event_cb(ui_btnToMainFlt, ui_event_btnToMainFlt, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_btnToManuFlt, ui_event_btnToManuFlt, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_btnToCanFlt, ui_event_btnToCanFlt, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_swchScrnFlt, ui_event_swchScrnFlt, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_btnClearFlt, ui_event_btnClearFlt, LV_EVENT_ALL, NULL);
 

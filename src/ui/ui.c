@@ -40,17 +40,15 @@ lv_obj_t * ui_lblToManual;
 void ui_event_btnToFaults(lv_event_t * e);
 lv_obj_t * ui_btnToFaults;
 lv_obj_t * ui_lblToFaults;
-void ui_event_btnToCan(lv_event_t * e);
-lv_obj_t * ui_btnToCan;
-lv_obj_t * ui_lblToCan;
+void ui_event_btnToCanbus(lv_event_t * e);
+lv_obj_t * ui_btnToCanbus;
+lv_obj_t * ui_lblToCanbus;
 lv_obj_t * ui_pnlHdr;
 lv_obj_t * ui_lblHdr;
 void ui_event_ddNode(lv_event_t * e);
 lv_obj_t * ui_ddNode;
 void ui_event_btnWifi(lv_event_t * e);
 lv_obj_t * ui_btnWifi;
-void ui_event_btnCanbus(lv_event_t * e);
-lv_obj_t * ui_btnCanbus;
 void ui_event_swchScrnMain(lv_event_t * e);
 lv_obj_t * ui_swchScrnMain;
 lv_obj_t * ui_pnlCm;
@@ -123,9 +121,9 @@ lv_obj_t * ui_lblToMainManu;
 void ui_event_btnToFltManu(lv_event_t * e);
 lv_obj_t * ui_btnToFltManu;
 lv_obj_t * ui_lblToFltManu;
-void ui_event_Button2(lv_event_t * e);
-lv_obj_t * ui_Button2;
-lv_obj_t * ui_Label2;
+void ui_event_btnToCanbusManu(lv_event_t * e);
+lv_obj_t * ui_btnToCanbusManu;
+lv_obj_t * ui_lblToCanbusManu;
 lv_obj_t * ui_pnlHdrManual;
 lv_obj_t * ui_lblHdr1;
 void ui_event_ddNode1(lv_event_t * e);
@@ -186,6 +184,9 @@ lv_obj_t * ui_lblToMainFlt;
 void ui_event_btnToManuFlt(lv_event_t * e);
 lv_obj_t * ui_btnToManuFlt;
 lv_obj_t * ui_lblToManuFlt;
+void ui_event_btnToCanFlt(lv_event_t * e);
+lv_obj_t * ui_btnToCanFlt;
+lv_obj_t * ui_lblToCanFlt;
 lv_obj_t * ui_pnlHdrFlt;
 lv_obj_t * ui_lblHdrFlt;
 void ui_event_swchScrnFlt(lv_event_t * e);
@@ -305,7 +306,7 @@ void ui_event_btnToFaults(lv_event_t * e)
         _ui_screen_change(ui_scrnFaults, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0);
     }
 }
-void ui_event_btnToCan(lv_event_t * e)
+void ui_event_btnToCanbus(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
@@ -327,14 +328,6 @@ void ui_event_btnWifi(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
         _ui_basic_set_property(ui_pnlWifi, _UI_BASIC_PROPERTY_POSITION_X,  0);
-    }
-}
-void ui_event_btnCanbus(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        openCanbus(e);
     }
 }
 void ui_event_swchScrnMain(lv_event_t * e)
@@ -471,7 +464,7 @@ void ui_event_btnToFltManu(lv_event_t * e)
         _ui_screen_change(ui_scrnFaults, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0);
     }
 }
-void ui_event_Button2(lv_event_t * e)
+void ui_event_btnToCanbusManu(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
@@ -598,6 +591,14 @@ void ui_event_btnToManuFlt(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
         _ui_screen_change(ui_scrnManu, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0);
+    }
+}
+void ui_event_btnToCanFlt(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_screen_change(ui_scrnCanbus, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0);
     }
 }
 void ui_event_swchScrnFlt(lv_event_t * e)

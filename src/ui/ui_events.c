@@ -67,5 +67,6 @@ void clearFlts(lv_event_t * e)
 
 void chngCanDisp(lv_event_t * e)
 {
-	// Your code here
+
+
 }
