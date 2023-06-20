@@ -337,8 +337,8 @@ void ui_scrnCanbus_screen_init(void)
     lv_table_set_cell_value(ui_tblCanRx, 2, 3, "119");
     lv_table_set_col_width(ui_tblCanRx, 0, 74);
     lv_table_set_col_width(ui_tblCanRx, 1, 174);
-    lv_table_set_col_width(ui_tblCanRx, 2, 38);
-    lv_table_set_col_width(ui_tblCanRx, 3, 38);
+    lv_table_set_col_width(ui_tblCanRx, 2, 140);
+    lv_table_set_col_width(ui_tblCanRx, 3, 60);
 
 
     ui_tblCanTx = lv_table_create(ui_pnlCanTxBody);
