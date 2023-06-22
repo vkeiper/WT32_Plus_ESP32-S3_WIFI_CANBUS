@@ -19,6 +19,7 @@
 #include <LovyanGFX.hpp>
 #include "main.h"
 #include <Ticker.h>
+#include <canbus.h>
 
 #define DEBUG_TOUCH (0)
 
@@ -213,24 +214,28 @@ void setup() {
   // start the UI
   ui_init();
   
-  /*
+  
   xTaskCreatePinnedToCore(
-    task1,    // Function that should be called
-    "Task CANbus",   // Name of the task (for debugging)
-    1000,            // Stack size (bytes)
-    NULL,            // Parameter to pass
-    2,               // Task priority
-    NULL,             // Task handle
-    1                // pin to core #x
+    task1,       // Function that should be called
+    "Task ICCP", // Name of the task (for debugging)
+    1000,        // Stack size (bytes)
+    NULL,        // Parameter to pass
+    2,           // Task priority
+    NULL,        // Task handle
+    1            // pin to core #x
   );
-*/  
+  
   // 5 seconds from now connect Wifi
   onceTickerWifiStart.once(5, connectWIFI);
+
+  // 7 secs in fire up CANbus
+  //onceTickerWifiStart.once(7, setupCANbus);
 
 }
 
 void loop() {
   lv_timer_handler();
+  //CANbus_RxTask();
   vTaskDelay(5 / portTICK_PERIOD_MS);
 }
 
