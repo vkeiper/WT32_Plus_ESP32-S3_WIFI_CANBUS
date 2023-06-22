@@ -214,7 +214,7 @@ void setup() {
   // start the UI
   ui_init();
   
-  
+  /*
   xTaskCreatePinnedToCore(
     task1,       // Function that should be called
     "Task ICCP", // Name of the task (for debugging)
@@ -224,7 +224,7 @@ void setup() {
     NULL,        // Task handle
     1            // pin to core #x
   );
-  
+  */
   // 5 seconds from now connect Wifi
   onceTickerWifiStart.once(5, connectWIFI);
 
