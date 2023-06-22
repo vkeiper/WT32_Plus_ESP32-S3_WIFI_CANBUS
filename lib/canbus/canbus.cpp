@@ -1,5 +1,5 @@
 #include "canbus.h"
-
+#include <Ticker.h>
 
 //#include "ui.h"
 //#include "ui_helpers.h"
@@ -12,11 +12,27 @@
 #define CANBUS_POLLING_RATE_MS 1000
 
 static bool canbus_driver_installed = false;
+Ticker syncTickerCanTx;
 
 
 //External resources
 extern uint8_t b_CANTXFlag;
 
+void tsk_CANbus(void * parameter){
+  static uint16_t updCnt=0;
+
+  for(;;){ // infinite loop
+    if((0== updCnt % 1000) || updCnt == 0){  
+      Serial.printf("Task 1 Run %d \n",updCnt);
+    }
+    updCnt++;
+
+    CANbus_RxTask();
+
+    // Pause the task for 10ms
+    vTaskDelay(5 / portTICK_PERIOD_MS);
+  }
+}
 
 void setupCANbus() {
   
@@ -52,6 +68,19 @@ void setupCANbus() {
 
   // TWAI driver is now successfully installed and started
   canbus_driver_installed = true;
+
+    xTaskCreatePinnedToCore(
+    tsk_CANbus,  // Function that should be called
+    "Task ICCP", // Name of the task (for debugging)
+    4000,        // Stack size (bytes)
+    NULL,        // Parameter to pass
+    2,           // Task priority
+    NULL,        // Task handle
+    0            // pin to core #x
+  );
+
+  /*Every 1 sec send test CANbus Message*/
+  syncTickerCanTx.attach_ms(1000,CanDoMessageTxTestMessage);
 }
 
 /** @Author Vince Keiper
@@ -104,7 +133,7 @@ bool CanTxBufferMutator(uint8_t * ptrBuff,uint8_t len, uint32_t id)
 //----------------------------
 //----- TRANSMIT MESSAGE -----
 //----------------------------
-bool CanDoMessageTxTestMessage()
+void CanDoMessageTxTestMessage()
 {
   bool retval =false;
 
@@ -132,8 +161,6 @@ bool CanDoMessageTxTestMessage()
   {
       retval = true;
   }
-
-  return retval;
 } //if (CanDoMessageTx)
 
 void handle_canbus_rx_message(twai_message_t& message) {

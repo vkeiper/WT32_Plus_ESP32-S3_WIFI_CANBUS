@@ -214,39 +214,18 @@ void setup() {
   // start the UI
   ui_init();
   
-  xTaskCreatePinnedToCore(
-    task1,       // Function that should be called
-    "Task ICCP", // Name of the task (for debugging)
-    4000,        // Stack size (bytes)
-    NULL,        // Parameter to pass
-    2,           // Task priority
-    NULL,        // Task handle
-    0            // pin to core #x
-  );
+
   
   // 5 seconds from now connect Wifi
   onceTickerWifiStart.once(5, connectWIFI);
 
   // 7 secs in fire up CANbus
-  //onceTickerWifiStart.once(7, setupCANbus);
+  onceTickerWifiStart.once(7, setupCANbus);
 
 }
 
 void loop() {
   lv_timer_handler();
-  //CANbus_RxTask();
   vTaskDelay(5 / portTICK_PERIOD_MS);
 }
 
-void task1(void * parameter){
-  static uint16_t updCnt=0;
-
-  for(;;){ // infinite loop
-    
-    Serial.printf("Task 1 Run %d \n",updCnt++);
-    
-    // Pause the task for 500ms
-    vTaskDelay(1500 / portTICK_PERIOD_MS);
-
-  }
-}
