@@ -1,0 +1,569 @@
+
+<!-- saved from url=(0019)http://192.168.1.2/ -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<title>AstrodyneTDI, Inc ICCP Host Controller</title>
+<link href="./atdi_iccp.css" rel="stylesheet" type="text/css">
+<script src="./iccpdynavars.js" type="text/javascript"></script>
+</head>
+
+<body>
+<div id="shadow-one"><div id="shadow-two"><div id="shadow-three"><div id="shadow-four">
+<div id="page">
+
+<div style="padding:0 0 5px 5px"><img src="./logo_astrodyne.gif" width="30%" alt="AstrodyneTDI"></div>
+
+<div id="navcontainer">
+</div>
+<div id="content">
+
+<div id="status">
+	<div id="loading" style="display:none">Error:<br>Connection to demo board was lost.</div>
+	<div id="display">
+	    <!--  Zone Status Data Table -->
+		<table>	
+			<colgroup>
+			<col width="60"><!-- NODE -->
+			<col width="60"><!-- OUTPUT LED_0 -->
+			<col width="60"><!-- MODE -->
+			<col width="100"><!-- VSET -->
+			<col width="100"><!-- ISET -->
+			<col width="100"><!-- VRDB -->
+			<col width="100"><!-- IRDB -->
+			<col width="30"><!-- ALM AC LED_1 -->
+			<col width="30"><!-- ALM DC LED_2 -->
+			<col width="30"><!-- ALM REC LED_3 -->
+			<col width="30"><!-- ALM SRG LED_4 -->
+			<col width="30"><!-- ALM REF LED_5 -->
+			<col width="30"><!-- ALM COM LED_6 -->
+			</colgroup><thead>
+				<tr>
+				   <th rowspan="2" align="center">NODE</th>
+				   <th rowspan="2" align="center">OUTPUT</th>
+				   <th rowspan="2" align="center">MODE</th>
+				   <th colspan="2" align="center">SET POINTS</th>
+				   <th colspan="2" align="center">READ BACKS</th>
+				   <th colspan="6" align="center">DIGITAL ALARMS</th>
+			   </tr>
+				<tr>
+				  <th align="center" valign="middle">VOLTS</th>
+				  <th align="center" valign="middle">AMPS</th>
+				  <th align="center" valign="middle">VOLTS</th>
+				  <th align="center" valign="middle">AMPS</th>
+				  <th align="center" valign="middle">&nbsp;AC&nbsp;</th>
+				  <th align="center" valign="middle">&nbsp;DC&nbsp;</th>
+				  <th align="center" valign="middle">REC</th>
+				  <th align="center" valign="middle">SRG</th>
+				  <th align="center" valign="middle">REF</th>
+				  <th align="center" valign="middle">COM</th>
+			  </tr>
+			  </thead>
+			  <tbody>
+				<tr>
+				  <td class="analog"> <span id="node">?</span> </td>  <!-- Zx ID -->
+				  <td class="leds"> <a id="led_0" style="font-size: 36pt">•</a> </td><!-- Zx ENA -->
+				  <td class="analog"> <span id="mode">?</span> </td>  <!-- Zx PSU QTY -->
+				  <td class="analog"> <span id="set_volts">123</span> </td>  <!-- Zx VSET -->
+				  <td class="analog"> <span id="set_amps">456</span> </td>  <!-- Zx ISET -->
+				  <td class="analog"> <span id="read_volts">?</span> </td>  <!-- Zx VRDB -->
+				  <td class="analog"> <span id="read_amps">?</span> </td>  <!-- Zx IRDB -->
+				  <td class="leds"> <a id="led_1" style="font-size: 36pt">•</a> </td><!-- Zx COM -->
+				  <td class="leds"> <a id="led_2" style="font-size: 36pt">•</a> </td><!-- Zx DCOK -->
+				  <td class="leds"> <a id="led_3" style="font-size: 36pt">•</a> </td><!-- Zx ACOK -->
+				  <td class="leds"> <a id="led_4" style="font-size: 36pt">•</a> </td><!-- Zx HTB -->
+				  <td class="leds"> <a id="led_5" style="font-size: 36pt">•</a> </td><!-- Zx HTB -->
+				  <td class="leds"> <a id="led_6" style="font-size: 36pt">•</a> </td><!-- Zx HTB -->
+				</tr>
+			  </tbody>
+			</table>				
+	
+ 
+			<table>	
+				<thead>
+					<tr>
+					   <th colspan="9"  align="center">REFERENCE ELECTRODE DATA</th>
+					</tr>
+					<tr>
+						<th colspan="1" align="center">DEMAND SET</th>
+						<th colspan="2" align="center"><span>1:&nbsp;</span><span id="read_e1_desc">ABC</span></th>
+						<th colspan="2" align="center"><span>2:&nbsp;</span><span id="read_e2_desc">DEF</span></th>
+						<th colspan="2" align="center"><span>3:&nbsp;</span><span id="read_e3_desc">GHI</span></th>
+						<th colspan="2" align="center"><span>4:&nbsp;</span><span id="read_e4_desc">JKL</span></th>
+					</tr>
+				  </thead>
+				  <tbody>
+					<tr>
+						<img style="display:none" src="./chk0.bmp" id="chk0">
+						<img style="display:none" src="./chk1.bmp" id="chk1">
+						<td class="analog" id="read_e_dmd" >789</td>
+						<td class="analog" id="read_e1_en"><img src="./chk0.bmp" id="read_e1_chk" width="12" height="12"></td>
+						<td class="analog" id="read_e1_dmd" >?</td>
+						<td class="analog" id="read_e2_en"><img src="./chk0.bmp" id="read_e2_chk" width="12" height="12"></td>
+						<td class="analog" id="read_e2_dmd" >?</td>
+						<td class="analog" id="read_e3_en"><img src="./chk0.bmp" id="read_e3_chk" width="12" height="12"></td>
+						<td class="analog" id="read_e3_dmd" >?</td>
+						<td class="analog" id="read_e4_en"><img src="./chk0.bmp" id="read_e4_chk" width="12" height="12"></td>
+						<td class="analog" id="read_e4_dmd" >?</td>
+					</tr>
+				  </tbody>
+				</table>
+	</div>
+<!-- <div id="submitsetpoints">-->
+<div>
+		
+<form method="POST" action="./index.htm">
+
+			<table>
+			<colgroup>
+				<col width="100"><!-- Zone ID COL -->
+				<col width="125"><!-- PSU QTY COL -->
+				<col width="75"><!-- VSET -->
+				<col width="125"><!-- ISET -->
+				<col width="125"><!-- PSET -->
+				<col width="125"><!-- LED HTB -->
+				<col width="125"><!-- LED HTB -->
+			</colgroup>
+				<thead >
+					<tr>
+						<th colspan="7" align="center" id="h_config_title">CONFIGURATION</th>
+					</tr>
+					<tr>
+						<th colspan="1"  align="center">CONFIGURE</th>
+						<th colspan="6"  align="center" id="config_hdg1">SETTINGS</th>
+						<th style="visibility:hidden"  colspan="6"  align="center" id="config_hdg2">SETTINGS&nbsp;2</th>
+						<th style="visibility:hidden"  colspan="6"  align="center" id="config_hdg3">SETTINGS&nbsp;3</th>
+						<th style="visibility:hidden"  colspan="6"  align="center" id="config_hdg4">SETTINGS&nbsp;4</th>
+						<th style="visibility:hidden"  colspan="6"  align="center" id="config_hdg5">SETTINGS&nbsp;5</th>
+						<th style="visibility:hidden"  colspan="6"  align="center" id="config_hdg6">SETTINGS&nbsp;6</th>
+					</tr>
+				</thead>	
+					<tbody>		  
+					<tr>
+					    <td style="text-align:left" class="notransition" width="80">
+							<select id="selectCfg" onchange="changeCfg()" name="selectCfg">
+								<option>-SELECT-</option>
+								<option>NODE</option>
+								<option>OUTPUT</option>
+								<option>MODE</option>
+							</select>
+						</td>
+					    <td style="text-align:left" class="notransition" width="80">
+							<select style="display:none"  id="selectNode" onchange="changeNode()" name="selectNode">
+								<option>-SELECT-</option>
+								<option>0: CAN ON</option>
+								<option>1: CAN OFF</option>
+								<option>2: CAN OFF</option>
+								<option>3: CAN OFF</option>
+							</select>
+							<select style="display:none"   id="selectMode" onchange="changeMode()" name="selectMode">
+								<option>-SELECT-</option>
+								<option>CV</option>
+								<option>CI</option>
+								<option>CPOT</option>
+							</select>
+							<span style="display:none" id="selectOutput">
+								<input id="outputEnableOn" onchange="changeOutput(1)" type="radio" name="outputEnable" value="ON">ON&nbsp;&nbsp;
+								<input id="outputEnableOff" onchange="changeOutput(0)" type="radio" name="outputEnable" value="OFF">OFF&nbsp;&nbsp;
+							</span>							
+						</td>
+						<td  style="text-align:left" class="notransition">
+							<input style="display:none" id="text_volts" type="text" name="volts" size="4">
+							<input style="display:none" id="text_amps" type="text" name="amps" size="4">
+							<input style="display:none" id="text_eset" type="text" name="eset" size="4">
+						</td>
+						<td  style="text-align:left" class="notransition">
+							<input style="display:none" id="chk_e1" type="checkbox" name="e1_en" value"E1">
+							<input style="display:none" id="text_e1_desc" type="text" name="e1_desc" size="6">
+						</td>
+						<td  style="text-align:left" class="notransition">
+							<input style="display:none" id="chk_e2" type="checkbox" name="e2_en" value"E4">
+							<input style="display:none" id="text_e2_desc" type="text" name="e2_desc" size="6">
+						</td>
+						<td  style="text-align:left" class="notransition">
+							<input style="display:none" id="chk_e3" type="checkbox" name="e3_en" value"E4">
+							<input style="display:none" id="text_e3_desc" type="text" name="e3_desc" size="6">
+						</td>
+						<td  style="text-align:left" class="notransition">
+							<input style="display:none" id="chk_e4" type="checkbox" name="e4_en" value"E4">
+							<input style="display:none" id="text_e4_desc" type="text" name="e4_desc" size="6">
+						</td>
+					</tr>
+					<tr align="center">
+						<td  style="display:none" colspan="7" id="submit" style="text-align:center" class="notransition" >
+							<input style="display:inline" type="submit" name="submitCfg" value="SUBMIT">
+							<input style="display:inline" type="button" name="cancel" value="CANCEL" onclick="resetElements()">
+						</td>
+						<td style="display:none" id="configMsg" style="text-align:center" class="analog" colspan="7" >Configuration message.</td>
+					</tr>
+				  </tbody>
+				</table>			
+		</form> 
+</div>
+
+</form>
+
+
+
+<table style="padding-left: 10px;">
+<tbody><tr><td><b>Ethernet Controller Firmware Version:</b></td><td>&nbsp;</td><td>0.0.1</td></tr>
+<tr><td><b>Build Date:</b></td><td>&nbsp;</td><td>2016.02.11</td></tr>
+</tbody></table>
+
+</div> <!-- status div -->
+
+</div> <!-- content div -->
+
+<script type="text/javascript">
+<!--
+// Parses the xmlResponse from status.xml and updates the status box
+function updateStatus(xmlData) {
+
+	var ledcolor;
+	var dataresponse;
+	var chkimage;
+	
+	dataresponse = getXMLValue(xmlData, 'config_state');
+	if(dataresponse == '1')
+	{
+		resetElements();
+		document.getElementById('configMsg').innerHTML = 'Configuration being edited locally! Please wait...';
+		document.getElementById("configMsg").style.display = "inline";
+		document.getElementById("submit").style.display = "none";
+	}
+	else
+	{
+		document.getElementById('configMsg').innerHTML = 'Ready';
+		document.getElementById("configMsg").style.display = "none";
+		//document.getElementById("submit").style.display = "inline";
+	}
+	
+	// Loop over all the LEDs
+	for(i = 0; i < 7; i++)
+	{
+		dataresponse = getXMLValue(xmlData, 'led_' + i);
+		if(dataresponse == '0'){ledcolor = '#ddd';}//off=gray
+		else if(dataresponse == '1'){ledcolor = '#090';}//1=green
+		else if(dataresponse == '2'){ledcolor = '#F00';}//2=red
+		else{ledcolor = '#FC0';}//3=yellow
+		
+		//{ledcolor = '#FC0';}//2=yellow
+		//{ledcolor = '#F00';}//3=red
+		
+		document.getElementById('led_' + i).style.color = ledcolor;//(getXMLValue(xmlData, 'led' + i) == '1') ? '#090' : '#ddd';
+	}
+	
+	//document.getElementById('config_msg').innerHTML = getXMLValue(xmlData, 'config_msg');
+	
+	document.getElementById('node').innerHTML = getXMLValue(xmlData, 'node');
+	document.getElementById('mode').innerHTML = getXMLValue(xmlData, 'mode');
+	
+	document.getElementById('set_volts').innerHTML = getXMLValue(xmlData, 'set_volts');
+	document.getElementById('set_amps').innerHTML = getXMLValue(xmlData, 'set_amps');
+	document.getElementById('read_volts').innerHTML = getXMLValue(xmlData, 'read_volts');
+	document.getElementById('read_amps').innerHTML = getXMLValue(xmlData, 'read_amps');
+	
+	document.getElementById('read_e_dmd').innerHTML = getXMLValue(xmlData, 'read_e_dmd');
+	
+	document.getElementById('read_e1_desc').innerHTML = getXMLValue(xmlData, 'read_e1_desc');
+	document.getElementById('read_e2_desc').innerHTML = getXMLValue(xmlData, 'read_e2_desc');
+	document.getElementById('read_e3_desc').innerHTML = getXMLValue(xmlData, 'read_e3_desc');
+	document.getElementById('read_e4_desc').innerHTML = getXMLValue(xmlData, 'read_e4_desc');
+	
+	document.getElementById('read_e1_dmd').innerHTML = getXMLValue(xmlData, 'read_e1_dmd');
+	document.getElementById('read_e2_dmd').innerHTML = getXMLValue(xmlData, 'read_e2_dmd');
+	document.getElementById('read_e3_dmd').innerHTML = getXMLValue(xmlData, 'read_e3_dmd');
+	document.getElementById('read_e4_dmd').innerHTML = getXMLValue(xmlData, 'read_e4_dmd');
+	
+	//document.getElementById('read_e1_en').innerHTML = getXMLValue(xmlData, 'read_e1_en');
+	//document.getElementById('read_e2_en').innerHTML = getXMLValue(xmlData, 'read_e2_en');
+	//document.getElementById('read_e3_en').innerHTML = getXMLValue(xmlData, 'read_e3_en');
+	//document.getElementById('read_e4_en').innerHTML = getXMLValue(xmlData, 'read_e4_en');
+	
+	// Loop over all the Checks
+	for(i = 1; i < 5; i++)
+	{
+		dataresponse = getXMLValue(xmlData, 'read_e' + i + '_en');
+		if(dataresponse == 'ACTIVE'){chkimage = document.getElementById("chk1").src;}
+		else{chkimage = document.getElementById("chk0").src;}
+
+		document.getElementById('read_e' + i + '_chk').src = chkimage;
+	}
+	
+	//document.getElementById('node').innerHTML = '0';
+	//document.getElementById('mode').innerHTML = 'CPOT';
+	//document.getElementById('set_volts').innerHTML = '54.0';
+	//document.getElementById('set_amps').innerHTML = '75.0';
+	//document.getElementById('read_volts').innerHTML = '54.2';
+	//document.getElementById('read_amps').innerHTML = '73.9';
+
+	//document.getElementById('read_e_dmd').innerHTML = '0.235';
+	//document.getElementById('read_e1_desc').innerHTML = 'Bow';
+	//document.getElementById('read_e2_desc').innerHTML = 'Port';
+	//document.getElementById('read_e3_desc').innerHTML = 'Starboard';
+	//document.getElementById('read_e4_desc').innerHTML = 'Stern';
+	//document.getElementById('read_e1_dmd').innerHTML = '0.231';
+	//document.getElementById('read_e2_dmd').innerHTML = '0.232';
+	//document.getElementById('read_e3_dmd').innerHTML = '0.233';
+	//document.getElementById('read_e4_dmd').innerHTML = '0.234';
+	//document.getElementById('read_e1_en').innerHTML = 'ACTIVE';
+	//document.getElementById('read_e2_en').innerHTML = 'ACTIVE';
+	//document.getElementById('read_e3_en').innerHTML = 'ACTIVE';
+	//document.getElementById('read_e4_en').innerHTML = 'ACTIVE';
+}
+
+setTimeout("newAJAXCommand('status.xml', updateStatus, true)",500);
+
+</script>
+
+
+<script>
+function resetElements(indexCfg,indexMode)
+{
+		document.getElementById("selectCfg").selectedIndex = indexCfg;
+		document.getElementById("selectMode").selectedIndex = indexMode;		
+
+		document.getElementById("config_hdg1").style.visibility = "hidden";
+		document.getElementById("config_hdg2").style.visibility = "hidden";
+		document.getElementById("config_hdg3").style.visibility = "hidden";
+		document.getElementById("config_hdg4").style.visibility = "hidden";
+		document.getElementById("config_hdg5").style.visibility = "hidden";
+		document.getElementById("config_hdg6").style.visibility = "hidden";
+		
+		document.getElementById('config_hdg1').innerHTML = '';
+		document.getElementById('config_hdg2').innerHTML = '';
+		document.getElementById('config_hdg3').innerHTML = '';
+		document.getElementById('config_hdg4').innerHTML = '';
+		document.getElementById('config_hdg5').innerHTML = '';
+		document.getElementById('config_hdg6').innerHTML = '';
+		
+		document.getElementById("config_hdg1").colSpan = "1";
+		document.getElementById("config_hdg2").colSpan = "1";
+		document.getElementById("config_hdg3").colSpan = "1";
+		document.getElementById("config_hdg4").colSpan = "1";
+		document.getElementById("config_hdg5").colSpan = "1";
+		document.getElementById("config_hdg6").colSpan = "1";
+		
+		document.getElementById("selectNode").style.display = "none";
+		document.getElementById("selectOutput").style.display = "none";
+		document.getElementById("selectMode").style.display = "none";
+		
+		document.getElementById("outputEnableOn").checked = false;
+		document.getElementById("outputEnableOff").checked = false;
+		
+		document.getElementById("text_volts").style.display = "none";
+		document.getElementById("text_amps").style.display = "none";
+		document.getElementById("text_eset").style.display = "none";
+		
+		document.getElementById("chk_e1").style.display = "none";
+		document.getElementById("chk_e2").style.display = "none";
+		document.getElementById("chk_e3").style.display = "none";
+		document.getElementById("chk_e4").style.display = "none";
+		
+		document.getElementById("text_e1_desc").style.display = "none";
+		document.getElementById("text_e2_desc").style.display = "none";
+		document.getElementById("text_e3_desc").style.display = "none";
+		document.getElementById("text_e4_desc").style.display = "none";
+		
+		document.getElementById("submit").style.display = "none";
+}
+
+function changeCfg()
+{
+	resetElements(document.getElementById("selectCfg").selectedIndex,"0");
+	
+	var x = document.getElementById("selectCfg").value;
+	
+	if(x == "-SELECT-")
+	{
+		document.getElementById("selectCfg").selectedIndex = "0";
+	}
+	
+	if(x == "NODE")
+	{
+		document.getElementById("selectCfg").selectedIndex = "1";
+		
+		document.getElementById('config_hdg1').innerHTML = 'NODE';
+		document.getElementById("config_hdg1").style.visibility = "visible";
+	
+		document.getElementById("selectNode").style.display = "inline";
+	}
+	
+	if(x == "OUTPUT")
+	{
+		document.getElementById("selectCfg").selectedIndex = "2";
+	
+		document.getElementById('config_hdg1').innerHTML = 'OUTPUT';
+		document.getElementById("config_hdg1").style.visibility = "visible";
+	
+		document.getElementById("selectOutput").style.display = "inline";
+	}
+	
+	if(x == "MODE")
+	{
+		document.getElementById("selectCfg").selectedIndex = "3";
+		
+		document.getElementById('config_hdg1').innerHTML = 'MODE';
+		document.getElementById("config_hdg1").style.visibility = "visible";
+	
+		document.getElementById("selectMode").style.display = "inline";
+	}
+}
+
+function changeNode() {
+    var x = document.getElementById("selectNode").value;
+
+	resetElements("1","0");
+	//document.getElementById("selectCfg").selectedIndex = "3";
+		document.getElementById('config_hdg1').innerHTML = 'NODE';
+		document.getElementById("config_hdg1").style.visibility = "visible";	
+		document.getElementById("selectNode").style.display = "inline";
+	
+	if(x != "-SELECT-")
+	{
+		document.getElementById("submit").style.display = "inline";
+	}
+	
+}
+
+function changeOutput(OnOff) {
+    var xon = document.getElementById("outputEnableOn").value;
+	var xoff = document.getElementById("outputEnableOff").value;
+
+	resetElements("2","0");
+	//document.getElementById("selectCfg").selectedIndex = "3";
+		document.getElementById('config_hdg1').innerHTML = 'OUTPUT';
+		document.getElementById("config_hdg1").style.visibility = "visible";
+	
+		document.getElementById("selectOutput").style.display = "inline";
+		
+	if(OnOff == "0")
+	{
+		document.getElementById("outputEnableOff").checked = true;
+	}
+	
+	if(OnOff == "1")
+	{
+		document.getElementById("outputEnableOn").checked = true;
+	}
+	
+	if(xon == "ON")
+	{
+		document.getElementById('config_hdg1').innerHTML = 'OUTPUT';
+		document.getElementById("config_hdg1").style.visibility = "visible";
+		document.getElementById("submit").style.display = "inline";
+	}
+
+	if(xoff == "OFF")
+	{
+		document.getElementById('config_hdg1').innerHTML = 'OUTPUT';
+		document.getElementById("config_hdg1").style.visibility = "visible";
+		document.getElementById("submit").style.display = "inline";
+	}
+	
+}
+
+function changeMode() {
+    var x = document.getElementById("selectMode").value;
+
+	resetElements("3",document.getElementById("selectMode").selectedIndex);
+	//document.getElementById("selectCfg").selectedIndex = "3";
+	
+	if(x == "-SELECT-")
+	{
+		//document.getElementById("selectMode").selectedIndex = "0";
+		document.getElementById("selectMode").style.display = "inline";
+		document.getElementById('config_hdg1').innerHTML = 'MODE';
+		document.getElementById("config_hdg1").style.visibility = "visible";
+	}
+
+	if(x == "CV")
+	{
+		//document.getElementById("selectMode").selectedIndex = "1";
+		document.getElementById("selectMode").style.display = "inline";
+		document.getElementById('config_hdg1').innerHTML = 'MODE';
+		document.getElementById("config_hdg1").style.visibility = "visible";
+
+		document.getElementById('config_hdg2').innerHTML = 'VOLTS';
+		document.getElementById("config_hdg2").style.visibility = "visible";
+		
+		document.getElementById("text_volts").style.display = "inline";
+		document.getElementById('text_volts').value = document.getElementById('set_volts').innerHTML;
+		
+		document.getElementById("submit").style.display = "inline";
+	}
+	
+	if(x == "CI")
+	{
+		//document.getElementById("selectMode").selectedIndex = "2";
+		
+		document.getElementById("selectMode").style.display = "inline";
+		document.getElementById('config_hdg1').innerHTML = 'MODE';
+		document.getElementById("config_hdg1").style.visibility = "visible";
+
+		document.getElementById('config_hdg2').innerHTML = 'AMPS';
+		document.getElementById("config_hdg2").style.visibility = "visible";
+
+		document.getElementById("text_amps").style.display = "inline";
+		document.getElementById('text_amps').value = document.getElementById('set_amps').innerHTML;
+		
+		document.getElementById("submit").style.display = "inline";
+	}
+	
+	if(x == "CPOT")
+	{
+		//document.getElementById("selectMode").selectedIndex = "3";
+		
+		document.getElementById("selectMode").style.display = "inline";
+		document.getElementById('config_hdg1').innerHTML = 'MODE';
+		document.getElementById('config_hdg2').innerHTML = 'DEMAND';
+		document.getElementById('config_hdg3').innerHTML = 'ELECTRODE 1';
+		document.getElementById('config_hdg4').innerHTML = 'ELECTRODE 2';
+		document.getElementById('config_hdg5').innerHTML = 'ELECTRODE 3';
+		document.getElementById('config_hdg6').innerHTML = 'ELECTRODE 4';
+		//document.getElementById("config_hdg1").style.visibility = "visible";
+		//document.getElementById("config_hdg2").style.visibility = "visible";
+		//document.getElementById("config_hdg3").style.visibility = "visible";
+		//document.getElementById("config_hdg4").style.visibility = "visible";
+		//document.getElementById("config_hdg5").style.visibility = "visible";
+		//document.getElementById("config_hdg6").style.visibility = "visible";
+		//document.getElementById("h_config_title").colSpan = "7";
+		
+		document.getElementById("config_hdg1").style.visibility = "visible";
+		document.getElementById("config_hdg2").style.visibility = "visible";
+		document.getElementById("config_hdg3").style.visibility = "visible";
+		document.getElementById("config_hdg4").style.visibility = "visible";
+		document.getElementById("config_hdg5").style.visibility = "visible";
+		document.getElementById("config_hdg6").style.visibility = "visible";
+
+		document.getElementById("text_eset").style.display = "inline";
+		document.getElementById('text_eset').value = document.getElementById('read_e_dmd').innerHTML;
+		
+		document.getElementById("chk_e1").style.display = "inline";
+		document.getElementById("chk_e2").style.display = "inline";
+		document.getElementById("chk_e3").style.display = "inline";
+		document.getElementById("chk_e4").style.display = "inline";
+		//document.getElementById("sub_CP").style.display = "inline";
+		//	document.getElementById('read_e1_desc').innerHTML = getXMLValue(xmlData, 'read_e1_desc');
+		
+		document.getElementById("text_e1_desc").style.display = "inline";
+		document.getElementById("text_e2_desc").style.display = "inline";
+		document.getElementById("text_e3_desc").style.display = "inline";
+		document.getElementById("text_e4_desc").style.display = "inline";
+		
+		document.getElementById('text_e1_desc').value = document.getElementById('read_e1_desc').innerHTML;
+		document.getElementById('text_e2_desc').value = document.getElementById('read_e2_desc').innerHTML;
+		document.getElementById('text_e3_desc').value = document.getElementById('read_e3_desc').innerHTML;
+		document.getElementById('text_e4_desc').value = document.getElementById('read_e4_desc').innerHTML;
+		
+		document.getElementById("submit").style.display = "inline";
+	}
+}
+</script>
+
+<div class="spacer">&nbsp;</div>
+<div id="footer">Author: Vince Keiper     Copyright © 2016 AstrodyneTDI, Inc. Version 0.0.0</div>
+
+</div></div></div></div></div>
+
+
+</body></html>

@@ -1,0 +1,230 @@
+~inc:header.inc~
+<div id="content">
+
+<div id="status">
+	<div id="loading" style="display:none">Error:<br />Connection to demo board was lost.</div>
+	<div id="display">
+		<form  method='post' action="zonecfg.htm" >
+			<!--  Zone Configuration Table -->
+			<table>	
+				<col width="70"><!-- Zone ID COL -->
+				<col width="40"><!-- Member 1 -->
+				<col width="40"><!-- Member 2 -->
+				<col width="40"><!-- Member 3 -->
+				<col width="40"><!-- Member 4 -->
+				<col width="40"><!-- Member 5 -->
+				<col width="40"><!-- Member 6 -->
+				<col width="40"><!-- Member 7 -->
+				<col width="40"><!-- Member 8 -->
+				<col width="40"><!-- Member 9 -->
+				<col width="40"><!-- Member 10 -->
+				<col width="50"><!-- Save Cfg -->
+				<thead>
+					<tr>
+					   <th colspan="1" align="center"></th>
+					   <th colspan="10" align="center">SELECT ZONE THEN ADD MEMBERS BY ENTERING THE PSU\BLADE ADDRESS</th>
+					   <th colspan="1" align="center">All Zones</th>
+				   </tr>
+					<tr>
+					  <th align="center" valign="middle">ZONE</th>
+					  <th align="center" valign="middle">Mem 1</th>
+					  <th align="center" valign="middle">Mem 2</th>
+					  <th align="center" valign="middle">Mem 3</th>
+					  <th align="center" valign="middle">Mem 4</th>
+					  <th align="center" valign="middle">Mem 5</th>
+					  <th align="center" valign="middle">Mem 6</th>
+					  <th align="center" valign="middle">Mem 7</th>
+					  <th align="center" valign="middle">Mem 8</th>
+					  <th align="center" valign="middle">Mem 9</th>
+					  <th align="center" valign="middle">Mem 10</th>
+					  <th align="center" valign="middle"> <input type='submit' name='clrcfg' value='Reset' /></th>
+				  </tr>
+				  </thead>
+				  <tbody>
+						<tr>
+						  <td >
+							<select name="zoneid">
+							<option value="zone0">Z1</option>
+							<option value="zone1">Z2</option>
+							<option value="zone2">Z3</option>
+							<option value="zone3">Z4</option>
+							<option value="zone4">Z5</option>
+							<option value="zone5">Z6</option>
+							</select>
+						  </td>  <!-- Selected Zone ID -->
+						  <td > <input type='text' name="blade0" value="" size="2" /> </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > <input type='text' name="blade1" value="" size="2" /> </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > <input type='text' name="blade2" value="" size="2" /> </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > <input type='text' name="blade3" value="" size="2" /> </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > <input type='text' name="blade4" value="" size="2" /> </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > <input type='text' name="blade5" value="" size="2" /> </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > <input type='text' name="blade6" value="" size="2" /> </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > <input type='text' name="blade7" value="" size="2" /> </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > <input type='text' name="blade8" value="" size="2" /> </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > <input type='text' name="blade9" value="" size="2" /> </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > <input type='submit' name='savcfg' value='Save Cfg' /> </td>
+						</tr>
+						<tr>
+						  <td >Z1</td>  <!-- Selected Zone ID -->
+						  <td > ~zone(0,0)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(0,1)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(0,2)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(0,3)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(0,4)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(0,5)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(0,6)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(0,7)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(0,8)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(0,9)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > </td>
+						</tr>
+						<tr>
+						  <td >Z2</td>  <!-- Selected Zone ID -->
+						  <td > ~zone(1,0)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(1,1)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(1,2)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(1,3)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(1,4)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(1,5)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(1,6)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(1,7)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(1,8)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(1,9)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > </td>
+						</tr>
+						<tr>
+						  <td >Z3</td>  <!-- Selected Zone ID -->
+						  <td > ~zone(2,0)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(2,1)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(2,2)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(2,3)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(2,4)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(2,5)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(2,6)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(2,7)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(2,8)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(2,9)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > </td>
+						</tr>
+						<tr>
+						  <td >Z4</td>  <!-- Selected Zone ID -->
+						  <td > ~zone(3,0)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(3,1)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(3,2)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(3,3)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(3,4)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(3,5)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(3,6)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(3,7)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(3,8)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(3,9)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > </td>
+						</tr>
+						<tr>
+						  <td >Z5</td>  <!-- Selected Zone ID -->
+						  <td > ~zone(4,0)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(4,1)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(4,2)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(4,3)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(4,4)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(4,5)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(4,6)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(4,7)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(4,8)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(4,9)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > </td>
+						</tr>
+						<tr>
+						  <td >Z6</td>  <!-- Selected Zone ID -->
+						  <td > ~zone(5,0)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(5,1)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(5,2)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(5,3)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(5,4)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(5,5)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(5,6)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(5,7)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(5,8)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > ~zone(5,9)~ </td>  <!-- Blade Address for member 0 of Zone X -->
+						  <td > </td>
+						</tr>
+				  </tbody>
+			</table>				
+		</form> 
+	</div>
+
+	
+
+<table style="padding-left: 10px;">
+<tr><td><b>Ethernet Controller Firmware Version:</b></td><td>&nbsp;</td><td>~version~</td></tr>
+<tr><td><b>Build Date:</b></td><td>&nbsp;</td><td>~builddate~</td></tr>
+</table>
+
+</div> <!-- status div -->
+	
+
+</div> <!-- content div -->
+
+<script type="text/javascript">
+<!--
+// Parses the xmlResponse from status.xml and updates the status box
+function updateStatus(xmlData) {
+	var mainstat = document.getElementById('display').style.display;
+	var loadstat = document.getElementById('loading').style.display;
+	var ledcolor;
+	var dataresponse;
+
+	// Check if a timeout occurred
+	if(!xmlData)
+	{
+		mainstat = 'none';
+		loadstat = 'inline';
+		return;
+	}
+
+	// Make sure we're displaying the status display
+	mainstat = 'inline';
+	loadstat = 'none';
+
+	// Loop over all the LEDs
+	for(i = 0; i < 5; i++)
+	{
+		dataresponse = getXMLValue(xmlData, 'led' + i);
+		if(dataresponse == '0'){ledcolor = '#ddd';}//off=gray
+		else if(dataresponse == '1'){ledcolor = '#090';}//1=green
+		else if(dataresponse == '2'){ledcolor = '#FC0';}//2=yellow
+		else{ledcolor = '#F00';}//3=red
+		
+		document.getElementById('led' + i).style.color = ledcolor;//(getXMLValue(xmlData, 'led' + i) == '1') ? '#090' : '#ddd';
+	}
+	// Loop over all the dip switches
+	//for(i = 0; i < 5; i++)
+	//	document.getElementById('btn' + i).innerHTML = (getXMLValue(xmlData, 'btn' + i) == 'up') ? '1' : '0';
+		
+	// Update the Analog read back Zone volts
+	document.getElementById('analog0').innerHTML = getXMLValue(xmlData, 'analog0');
+	
+	// Update the Analog read back Zone amperes
+	document.getElementById('analog1').innerHTML = getXMLValue(xmlData, 'analog1');
+	
+		// Update the Analog Zone SET volts
+	document.getElementById('analog2').innerHTML = getXMLValue(xmlData, 'analog2');
+	
+	// Update the Analog Zone SET amperes
+	document.getElementById('analog3').innerHTML = getXMLValue(xmlData, 'analog3');
+	
+	// Update the Analog Highest DCDC temp in Zone
+    //document.getElementById('analog4').innerHTML = getXMLValue(xmlData, 'analog4');
+	
+	// Update the Analog PSU Qty in Zone
+    //document.getElementById('analog5').innerHTML = getXMLValue(xmlData, 'analog5');
+	
+	// Update the Analog Selected Zone Id
+    //document.getElementById('analog6').innerHTML = getXMLValue(xmlData, 'analog6');
+
+}
+setTimeout("newAJAXCommand('status.xml', updateStatus, true)",100);
+//-->
+</script>
+<!--#PWMfreq-->
+~inc:footer.inc~

@@ -1,0 +1,435 @@
+/*
+	Author: Vince Keiper
+    Tdi Power Liqua Blade Power Supply Style Sheet
+
+*/
+body {
+	background: #fafafa url(/files/noise-diagonal.png);
+	color: #27065A; /* dark purple */
+	font: 100%/30px 'Helvetica Neue', helvetica, arial, sans-serif;
+	text-shadow: 0 1px 0 #fff;
+}
+strong {
+	font-weight: bold; 
+}
+
+em {
+	font-style: italic; 
+}
+#shadow-one {
+	width: 800px;
+	/*border: 1px solid #555;  /* light grey */
+	border-top: 0;
+	margin: 0px auto;
+}
+#shadow-two {
+	/*border: 1px solid #4b4b4b;  /* grey */
+	border-top: 0;
+}
+#shadow-three {
+	/*border: 1px solid #444;  /* dark grey */
+	border-top: 0;
+}
+#shadow-four {
+	/*border: 1px solid #3a3a3a;  /* med grey */
+	border-top: 0;
+}
+
+#page {
+	/*border: 1px solid #333;   /* grey */
+	/*background: #fff;*/
+	background: #fafafa
+	border-top: 0;
+	padding: 10px;
+	font-size: 10pt;
+}
+#title {
+	background: #27065A; /* #c00; */
+	padding: 4px;
+	font-weight: bold;
+	color: #fff;
+	margin-bottom: 15px;
+	height: 25px;
+}
+
+#title .right {
+	float: right;
+	width: 300px;
+	text-align: right;
+}
+
+#status {
+	width: 500px;
+	float: right;
+	left: 150px;
+	bottom: 15px; 
+	padding: 10px;
+	margin: 10px;
+	/*border: 1px dotted #666;*/
+	font-weight: bold;
+}
+
+#status p {
+	padding: 5px 0 5px 10px;
+	text-indent: -10px;
+	margin: 0;
+}
+
+#status .leds {
+	font-size: 36pt;
+}
+
+#status .leds a {
+	color: #ddd;
+	cursor: pointer;
+}
+
+#status .leds a:hover {
+	color: #ddd;
+	text-decoration: none;
+}
+
+ul#navlist
+{
+margin-left: 13px;
+padding-left: 0;
+white-space: nowrap;
+}
+
+#navlist li
+{
+display: inline;
+list-style-type: none;
+}
+
+/*#navlist a { padding: 3px 10px; }*/
+
+#navlist a:link, #navlist a:visited
+{
+/*
+    text-decoration: none;
+	background: #27065A;
+	color: green;
+	padding: 8px;
+	font-weight: bold;
+	border-bottom: 1px solid #00A300;
+	
+	*/
+	
+	text-decoration: none;
+	background: url(/files/noise-diagonal.png), linear-gradient(#9382AC, #27065A);
+	border-left: 1px solid #555;
+	border-right: 1px solid #777;
+	border-top: 1px solid #555;
+	border-bottom: 1px solid #333;
+	box-shadow: inset 0 1px 0 #999;
+	color: #fff;
+    font-weight: bold;
+	padding: 5px 5px;
+	position: relative;
+	text-shadow: 0 1px 0 #000;	
+}
+
+#navlist a:hover
+{
+color: #fff;
+background: #55B74A; 
+text-decoration: none;
+}
+
+
+#content {
+	width: 925px; /*525px;*/
+	float: right;
+	padding-right: 10px;
+}
+
+#content a {
+	color: #27065A; /* #c00; */
+	text-decoration: none;
+}
+
+#content a:hover {
+	color: #55B74A; /* #d33; */
+	text-decoration: underline;
+}
+
+#content h1 {
+	margin-top: 0px;
+}
+
+.spacer {
+	clear: both;
+}
+
+#footer {
+	font-size: 0.8em;
+	color: #666;
+	text-align: center;
+	margin: 10px 50px 0 50px;
+	padding-top: 10px;
+	border-top: 1px dotted #666;
+	left: 150px;
+}
+
+#status {
+	width: 750px;
+	position: relative;
+	float: left;
+	padding: 10px;
+	margin: 10px;
+	border: 1px dotted #666;
+	font-weight: bold;
+}
+
+#status p {
+	padding: 5px 0 5px 10px;
+	text-indent: -10px;
+	margin: 0;
+}
+
+#status .leds {
+	font-size: 14pt;
+}
+
+#status .leds a {
+	color: #ddd;
+	cursor: pointer;
+}
+
+#status .leds a:hover {
+	color: #ddd;
+	text-decoration: none;
+}
+
+.examplebox {
+	margin:10px 40px 10px 40px;
+	padding: 8px;
+	border: 1px dotted #333;
+	text-align:center;
+	background:#ddd;
+}
+
+.code {
+	font-family: Courier New, Courier, fixed-width, fixed;
+}
+
+.exercise {
+	background: #fe9;
+	padding: 5px;
+	margin-left: 10px;
+	border-left: 2px solid #eb3;
+}
+
+.error {
+	margin-left: 10px;
+	padding: 10px;
+	background: #fdd;
+	border-left: 2px solid #900;
+}
+
+#content h6 {
+	border-top: 1px dashed #333;
+	margin: 15px;
+	padding: 0px;
+	height: 1px;
+}
+
+.examplebox td {
+	text-align:left;
+	padding-right: 15px;
+}
+
+fieldset {
+	margin:10px 40px 10px 40px;
+	padding: 8px;
+	border: 1px dotted #333;
+	background:#ddd;
+}
+
+fieldset div {
+	padding: 2px 0px 2px 150px;
+}
+
+fieldset div label {
+	margin-left: -140px;
+	padding-top: 2px;
+	width: 135px;
+	font-weight: bold;
+	position: absolute;
+}
+
+fieldset input {
+	width: 250px;
+}
+
+fieldset input.sm {
+	width: auto;
+}
+
+fieldset textarea {
+	width: 250px;
+}
+
+.result
+{
+	margin: 10px 40px 10px 40px;
+	padding: 8px;
+	border: 1px solid #333;
+	text-align: center;
+	font-weight: bold;
+	background: #eee;
+}
+
+	.ok {
+		border-color: #6b6;
+		background: #efe;
+	}
+	
+	.fail {
+		border-color: #b66;
+		background: #fee;
+	}
+	
+	.unk {
+		border-color: #cc6;
+		background: #ffd;
+	}
+
+	
+	
+table {
+	background: #f5f5f5;
+	border-collapse: separate;
+	box-shadow: inset 0 1px 0 #fff;
+	font-size: 10px;
+	line-height: 10px;
+	margin: 5px auto;
+	text-align: left;
+	width: 750px;
+	position: relative;
+}
+table.left{
+	width: 350px;
+	position: relative;
+    float: left;
+    margin-left: 3px;
+}	
+table.right{
+	width: 350px;
+	position: relative;
+	float: right;
+	bottom: 8px;
+}
+th {
+	background: url(/files/noise-diagonal.png), linear-gradient(#9382AC, #27065A);
+	border-left: 1px solid #555;
+	border-right: 1px solid #777;
+	border-top: 1px solid #555;
+	border-bottom: 1px solid #333;
+	box-shadow: inset 0 1px 0 #999;
+	color: #fff;
+    font-weight: bold;
+	padding: 5px 5px;
+	position: relative;
+	text-shadow: 0 1px 0 #000;	
+}
+
+th:after {
+	background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.08));
+	content: '';
+	display: block;
+	height: 125%;
+	left: 0;
+	margin: 1px 0 0 0;
+	/*position: absolute;*/
+	top: 125%;
+	width: 100%;
+}
+
+th:first-child {
+	border-left: 1px solid #777;	
+	box-shadow: inset 1px 1px 0 #999;
+}
+
+th:last-child {
+	box-shadow: inset -1px 1px 0 #999;
+}
+
+td {
+	border-right: 1px solid #fff;
+	border-left: 1px solid #e8e8e8;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #e8e8e8;
+	padding: 5px 5px;
+	position: relative;
+	transition: all 300ms;
+	text-align: center;
+}
+td.analog{
+	border-right: 1px solid #fff;
+	border-left: 1px solid #e8e8e8;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #e8e8e8;
+	padding: 5px 5px;
+	position: relative;
+	transition: all 300ms;
+	font-size: 13px;
+	text-align: center;
+}
+td.leds{
+	border-right: 1px solid #fff;
+	border-left: 1px solid #e8e8e8;
+	border-top: 1px solid #fff;
+	border-bottom: 1px solid #e8e8e8;
+	padding: 5px 5px;
+	position: relative;
+	transition: all 300ms;
+	font-size: 36px;
+	text-align: center;
+}
+td.notransition{
+    transition: none;
+}
+td:first-child {
+	box-shadow: inset 1px 0 0 #fff;
+}	
+
+td:last-child {
+	border-right: 1px solid #e8e8e8;
+	box-shadow: inset -1px 0 0 #fff;
+}	
+
+tr {
+	background: url(/files/noise-diagonal.png);	
+}
+
+tr:nth-child(odd) td {
+	background: #f1f1f1 url(/files/noise-diagonal.png);	
+}
+
+tr:last-of-type td {
+	box-shadow: inset 0 -1px 0 #fff; 
+}
+
+tr:last-of-type td:first-child {
+	box-shadow: inset 1px -1px 0 #fff;
+}	
+
+tr:last-of-type td:last-child {
+	box-shadow: inset -1px -1px 0 #fff;
+}	
+
+tbody:hover td {
+/* Disable the highlighting of the row selected or hovering on*/
+/*	color: transparent;
+	text-shadow: 0 0 3px #aaa;
+	*/
+}
+
+tbody:hover tr:hover td {
+/* Disable the highlighting of the row selected or hovering on*/
+/*	color: #444;
+	text-shadow: 0 1px 0 #fff;
+	*/
+}

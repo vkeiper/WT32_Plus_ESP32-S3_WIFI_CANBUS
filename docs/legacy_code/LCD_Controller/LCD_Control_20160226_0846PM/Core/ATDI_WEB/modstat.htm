@@ -1,0 +1,178 @@
+~inc:header.inc~
+<div id="content">
+
+<div id="status">
+	<div id="loading" style="display:none">Error:<br />Connection to demo board was lost.</div>
+	<div id="display">
+    
+			<!--  PSU Selection Table -->
+		<form method='post' action="modstat.htm" >
+			<table>	
+				<thead>
+					<tr>
+					   <th colspan="2" align="center"> Select PSU To Monitor & Control</th>
+					</tr>
+				  </thead>
+				  <tbody>
+					<tr>
+						<td class="notransition">
+						PSU Address: <input type='text' name='psuadd' size="4" /> 
+						</td>
+					    <td class="notransition">
+						   <input type='submit' name='subpsu' value='Select PSU' /> 
+					    </td>
+					</tr>
+				  </tbody>
+				</table>		
+		</form>  
+	    <!--  Zone Status Data Table -->
+	
+	
+		<table>	
+			<col width="70"><!-- DCDC ID COL -->
+			<col width="70"><!-- VSET -->
+			<col width="70"><!-- VRDB -->
+			<col width="85"><!-- ISET -->
+			<col width="85"><!-- IRDB -->
+			<col width="70"><!-- TEMP -->
+			<col width="30"><!-- LED DC -->
+			<col width="45"><!-- LED FLT -->
+			<col width="30"><!-- LED AC -->
+			<col width="30"><!-- LED ON -->
+			<thead>
+				<tr>
+				   <th class="analog" colspan="1" align="center"> <span id="manalog15">?</span>  </th>
+				   <th colspan="3" align="center">ANALOG</th>
+				   <th colspan="8" align="center">DIGITAL ALARMS</th>
+			   </tr>
+				<tr>
+				  <th align="center" valign="middle">DCDC-ID</th>
+				  <th align="center" valign="middle">VSET</th>
+				  <th align="center" valign="middle">VRDB</th>
+				  <th align="center" valign="middle">ISET</th>
+				  <th align="center" valign="middle">IRDB</th>
+				  <th align="center" valign="middle">TEMP</th>
+				  <th align="center" valign="middle">DC</th>
+				  <th align="center" valign="middle">FLT</th>
+				  <th align="center" valign="middle">AC</th>
+				  <th align="center" valign="middle">ON</th>
+			   </tr>
+			  </thead>
+			  <tbody>
+				<tr>
+				  <td class="analog"><strong>DC 1</strong></td>
+				  <td class="analog"> <span id="manalog0">?</span> </td>  <!-- VSET -->
+				  <td class="analog"> <span id="manalog3">?</span> </td>  <!-- VRDB DC1 -->
+				  <td class="analog"> <span id="manalog6">?</span> </td>  <!-- ISET DC1 -->
+				  <td class="analog"> <span id="manalog9">?</span> </td>  <!-- IRDB DC1 -->
+				  <td class="analog"> <span id="manalog12">?</span> </td>  <!-- TEMP DC1 -->
+				  <td class="leds"> <a id="mled0" style="font-size: 36pt">&bull;</FONT></a> </td><!-- DCOK DC1 -->
+				  <td class="leds"> <a id="mled3" style="font-size: 36pt">&bull;</a> </td><!-- OV,OT DC1 -->
+				  <td class="leds"> <a id="mled6" style="font-size: 36pt">&bull;</a> </td><!-- ACOK DC1 -->
+				  <td class="leds"> <a id="mled9" style="font-size: 36pt">&bull;</a> </td><!-- ENABIT DC1 -->
+				  
+				</tr>
+				<tr>
+				  
+				  <td class="analog"> <strong>DC 2</strong> </td>
+				  <td class="analog"> <span id="manalog18">?</span> </td>  <!-- VSET -->
+				  <td class="analog"> <span id="manalog4" style="font-weight:normal">?</span> </td>  <!-- VRDB DC2 -->
+				  <td class="analog"> <span id="manalog7" style="font-weight:normal">?</span> </td>  <!-- ISET DC2 -->
+				  <td class="analog"> <span id="manalog10" style="font-weight:normal">?</span> </td>  <!-- IRDB DC2 -->
+				  <td class="analog"> <span id="manalog13" style="font-weight:normal">?</span> </td>  <!-- TEMP DC2 -->
+				  <td align="center" valign="middle"> <a id="mled1" style="font-size: 36pt" >&bull;</a> </td><!-- DCOK DC2 -->
+				  <td align="center" valign="middle"> <a id="mled4" style="font-size: 36pt" >&bull;</a> </td><!-- OV,OT DC2 -->
+				  <td align="center" valign="middle"> <a id="mled7" style="font-size: 36pt" >&bull;</a> </td><!-- ACOK DC2 -->
+				  <td align="center" valign="middle"> <a id="mled10" style="font-size: 36pt">&bull;</a> </td><!-- ENABIT DC2 -->
+				  
+			   </tr>
+				<tr>
+				  
+				  <td class="analog"> <strong>DC 3</strong></td>
+				  <td class="analog"> <span id="manalog19">?</span> </td>  <!-- VSET  -->
+				  <td class="analog"> <span id="manalog5" style="font-weight:normal">?</span> </td>  <!-- VRDB DC3 -->
+				  <td class="analog"> <span id="manalog8" style="font-weight:normal">?</span> </td>  <!-- ISET DC3 -->
+				  <td class="analog"> <span id="manalog11" style="font-weight:normal">?</span> </td>  <!-- IRDB DC3 -->
+				  <td class="analog"> <span id="manalog14" style="font-weight:normal">?</span> </td>  <!-- TEMP DC3 -->
+				  <td align="center" valign="middle"> <a id="mled2" style="font-size: 36pt" >&bull;</a> </td><!-- DCOK DC3 -->
+				  <td align="center" valign="middle"> <a id="mled5" style="font-size: 36pt" >&bull;</a> </td><!-- OV,OT DC3 -->
+				  <td align="center" valign="middle"> <a id="mled8" style="font-size: 36pt" >&bull;</a> </td><!-- ACOK DC3 -->
+				  <td align="center" valign="middle"> <a id="mled11" style="font-size: 36pt" >&bull;</a> </td><!-- ENABIT DC3 -->
+				  
+				</tr>
+				<tr>
+				  <th align="center" valign="middle">PSU</th>
+				  <th align="center" valign="middle">VSET</th>
+				  <th align="center" valign="middle">VRDB</th>
+				  <th align="center" valign="middle">ISET</th>
+				  <th align="center" valign="middle">IRDB</th>
+				  <th align="center" valign="middle">TEMP</th>
+				  <th align="center" valign="middle">DC</th>
+				  <th align="center" valign="middle">FLT</th>
+				  <th align="center" valign="middle">AC</th>
+				  <th align="center" valign="middle">ON</th>
+			   </tr>
+				<tr>
+				  <td class="analog"> <strong>Blade Stats</strong></td>
+				  <td class="analog"> <span id="manalog20">?</span> </td>  <!-- VSET -->
+				  <td class="analog"> <span id="manalog1" style="font-weight:normal">?</span> </td>  <!-- VRDB PSU -->
+				  <td class="analog"> <span id="manalog2" style="font-weight:normal">?</span> </td>  <!-- ISET PSU -->
+				  <td class="analog"> <span id="manalog16" style="font-weight:normal">?</span> </td>  <!-- IRDB PSU -->
+				  <td class="analog"> <span id="manalog17" style="font-weight:normal">?</span> </td>  <!-- TEMP PSU -->
+				  <td align="center" valign="middle"> <a id="mled12" style="font-size: 36pt" >&bull;</a> </td><!-- DCOK PSU -->
+				  <td align="center" valign="middle"> <a id="mled13" style="font-size: 36pt" >&bull;</a> </td><!-- OV,OT PSU -->
+				  <td align="center" valign="middle"> <a id="mled14" style="font-size: 36pt" >&bull;</a> </td><!-- ACOK PSU -->
+				  <td align="center" valign="middle"> <a id="mled15" style="font-size: 36pt" >&bull;</a> </td><!-- ENABIT PSU -->
+				</tr> 
+			  </tbody>
+			</table>
+			
+	</div>
+
+</div> <!-- status div -->
+
+<script type="text/javascript">
+<!--
+// Parses the xmlResponse from modstatus.xml and updates the status box
+function updateStatus(xmlData) {
+	var mainstat = document.getElementById('display').style.display;
+	var loadstat = document.getElementById('loading').style.display;
+	var ledcolor;
+	var dataresponse;
+
+	// Check if a timeout occurred
+	if(!xmlData)
+	{
+		mainstat = 'none';
+		loadstat = 'inline';
+		return;
+	}
+
+	// Make sure we're displaying the status display
+	mainstat = 'inline';
+	loadstat = 'none';
+
+	// Loop over all the LEDs
+	for(i = 0; i < 16; i++)
+	{
+		dataresponse = getXMLValue(xmlData, 'mled' + i);
+		if(dataresponse == '0'){ledcolor = '#ddd';}//off=gray
+		else if(dataresponse == '1'){ledcolor = '#090';}//1=green
+		else if(dataresponse == '2'){ledcolor = '#FC0';}//2=yellow
+		else{ledcolor = '#F00';}//3=red
+		
+		document.getElementById('mled' + i).style.color = ledcolor;
+	}
+	
+	// Loop over all the analog signals
+	for(i = 0; i < 21; i++)
+		document.getElementById('manalog' +i).innerHTML = getXMLValue(xmlData, 'manalog' +i);
+	
+
+}
+setTimeout("newAJAXCommand('modstatus.xml', updateStatus, true)",100);
+//-->
+</script>
+
+
+~inc:footer.inc~

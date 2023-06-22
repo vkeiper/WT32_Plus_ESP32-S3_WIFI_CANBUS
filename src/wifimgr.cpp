@@ -24,7 +24,7 @@ const char* password = "vin31NAT91";
 String ssidNameStr = "eLink2 WiFi LCD";
 String passwordStr = "1234";
 const char* remote_host = "192.168.68.1";
-const char* local_host = "el2wifilcd";
+const char* local_host = "vgk3";  // instead of ip address you can hit url http://el2wifilcd.local/xxxxxx where x's are the poage or resource you want to access
 unsigned long timeout = 10000; // 10sec
 int pingCount = 2; 
 

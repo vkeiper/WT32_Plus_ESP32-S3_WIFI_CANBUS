@@ -1,0 +1,260 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<title>Tdi Power, Inc LiquaBlade Host Controller</title>
+<link href="tdi_lb.css" rel="stylesheet" type="text/css">
+<script src="liquabladedynavars.js" type="text/javascript"></script>
+</head>
+
+<body>
+<div id="shadow-one"><div id="shadow-two"><div id="shadow-three"><div id="shadow-four">
+<div id="page">
+
+<div style="padding:0 0 5px 5px"><img src="tdi.gif" width="15%" alt="TdiPower"></div>
+
+
+<div id="navcontainer">
+<ul id="navlist">
+<li id="active"><a href="/index.htm">Zone Status</a></li>
+<li><a href="/modstat.htm">PSU Status</a></li>
+<li><a href="/zonecfg.htm">Zone Cfg</a></li>
+<li><a href="/protect/config.htm">Network Cfg</a></li>
+</ul>
+</div>
+<div id="content">
+
+<div id="status">
+	<div id="loading" style="display:none">Error:<br />Connection to demo board was lost.</div>
+	<div id="display">
+		<!--  Zone Selection Table -->
+		<form method='post' action="index.htm" >
+			<table>	
+				<thead>
+					<tr>
+					   <th colspan="7" align="center"> Select Zone To Monitor</th>
+					</tr>
+				  </thead>
+				  <tbody>
+					<tr>
+					  <td class="notransition">
+						<input type="radio" name="selzid" value="1">Zone 1
+					  </td>
+					  <td class="notransition">
+					   	<input type="radio" name="selzid" value="2">Zone 2
+					  </td>
+					  <td class="notransition">
+					  	 <input type="radio" name="selzid" value="3">Zone 3
+					  </td>
+					  <td class="notransition">
+					 	<input type="radio" name="selzid" value="4">Zone 4
+					  </td>
+					  <td class="notransition">
+					  	 <input type="radio" name="selzid" value="5">Zone 5
+						</td>
+					  <td class="notransition">
+					   <input type="radio" name="selzid" value="6">Zone 6
+					  </td>
+					  <td class="notransition">
+						<input type='submit' name='subzid' value='Select Zone' /> 
+					  </td>
+					</tr>
+				  </tbody>
+				</table>		
+		</form>  
+	    <!--  Zone Status Data Table -->
+		<table>	
+			<col width="35"><!-- Zone ID COL -->
+			<col width="30"><!-- PSU QTY COL -->
+			<col width="60"><!-- VSET -->
+			<col width="75"><!-- ISET -->
+			<col width="75"><!-- PSET -->
+			<col width="60"><!-- VRDB -->
+			<col width="75"><!-- IRDB -->
+			<col width="75"><!-- PRDB -->
+			<col width="40"><!-- TEMP -->
+			<col width="30"><!-- LED ENA -->
+			<col width="30"><!-- LED COM -->
+			<col width="30"><!-- LED DCOK -->
+			<col width="30"><!-- LED ACOK -->
+			<col width="30"><!-- LED HTB -->
+			<thead>
+				<tr>
+				   <th align="center">ZONE</th>
+				   <th align="center">PSU</th>
+				   <th colspan="3" align="center">ANALOG SET POINTS</th>
+				   <th colspan="4" align="center">ANALOG READ BACKS</th>
+				   <th colspan="5" align="center">DIGITAL ALARMS</th>
+			   </tr>
+				<tr>
+				  <th align="center" valign="middle">ID</th>
+				  <th align="center" valign="middle">QTY</th>
+				  <th align="center" valign="middle">VSET</th>
+				  <th align="center" valign="middle">ISET</th>
+				  <th align="center" valign="middle">PSET</th>
+				  <th align="center" valign="middle">VRDB</th>
+				  <th align="center" valign="middle">IRDB</th>
+				  <th align="center" valign="middle">PRDB</th>
+				  <th align="center" valign="middle">TEMP</th>
+				  <th align="center" valign="middle">ENA</th>
+				  <th align="center" valign="middle">COM</th>
+				  <th align="center" valign="middle">DC&nbsp</th>
+				  <th align="center" valign="middle">AC&nbsp</th>
+				  <th align="center" valign="middle">HTB</th>
+			  </tr>
+			  </thead>
+			  <tbody>
+				<tr>
+				  <td class="analog"> ~zonestat(0)~ </td>  <!-- Zx ID -->
+				  <td class="analog"> ~zonestat(1)~ </td>  <!-- Zx PSU QTY -->
+				  <td class="analog"> ~zonestat(2)~ </td>  <!-- Zx VSET -->
+				  <td class="analog"> ~zonestat(3)~ </td>  <!-- Zx ISET -->
+				  <td class="analog"> ~zonestat(4)~ </td>  <!-- Zx PSET -->
+				  <td class="analog"> <span id="analog0">?</span> </td>  <!-- Zx VRDB -->
+				  <td class="analog"> <span id="analog1">?</span> </td>  <!-- Zx IRDB -->
+				  <td class="analog"> <span id="analog3">?</span> </td>  <!-- Zx PRDB -->
+				  <td class="analog"> <span id="analog2">?</span> </td>  <!-- Zx TEMP -->
+				  <td class="leds"> <a id="led4" style="font-size: 36pt">&bull;</FONT></a> </td><!-- Zx ENA -->
+				  <td class="leds"> <a id="led3" style="font-size: 36pt">&bull;</a> </td><!-- Zx COM -->
+				  <td class="leds"> <a id="led2" style="font-size: 36pt">&bull;</a> </td><!-- Zx DCOK -->
+				  <td class="leds"> <a id="led1" style="font-size: 36pt">&bull;</a> </td><!-- Zx ACOK -->
+				  <td class="leds"> <a id="led0" style="font-size: 36pt">&bull;</a> </td><!-- Zx HTB -->
+				</tr>
+			  </tbody>
+			</table>				
+	</div>
+<!-- <div id="submitsetpoints">-->
+<form method='post' action="index.htm" >
+
+   <table class="left">		
+		<th> <b>Zone Level Control:</b> </th>
+		<tr>
+			<td class="notransition">
+			Volts: <input type='text' name='volts' size="4" /> 
+			Amps: <input type='text' name='amps' size="4" />
+			Watts: <input type='text' name='watts' size="5" />
+			</td>
+		</tr>
+		<tr>
+			<td>	
+			<input type="radio" name="enable" value="on">Enable
+			<input type="radio" name="enable" value="off">Disable 
+			<input type='submit' name='Submit' value='submit' /> <br>
+			</td>
+		</tr>
+		<tr>
+			<td> ~syssettext~</td>
+		</tr>
+	</table>
+</form>
+
+<form method='post' action="index.htm" >
+
+   <table class="right" margin-left: 0px;>
+		<th> <b>Manual Adjust:</b> </th>
+		<tr>
+			<td>
+			  <input type="radio" name="adjmode" value="v" id="voltsradio">Volts
+			  <input type="radio" name="adjmode" value="a" id="ampsradio">Amps 
+			  <input type="radio" name="adjmode" value="w" id="wattsradio">Watts
+			  Interval: <input type='text' name="adjint" value=~manadjint~ id="manadjint" size="5" />
+		      <input type='submit' name="subdec" value="-"/>
+		      <input type='submit' name="subinc" value="+" />
+			 </td>
+		</tr>
+		<th> <b>Default Mode Setting:</b> </th>
+		<tr>
+			<!--<td align="left">
+			  <input type="radio" name="opmode" value="eth" id="ethmode">Remote
+			  <input type="radio" name="opmode" value="adc" id="adcvip">Analog 
+		     Volts<input type="checkbox" name="vadc" value="Volts"> 
+			 Amps<input type="checkbox" name="iadc" value="Amps"> 
+			</td>
+		</tr>
+		<tr>
+     		<td align="left">
+			  <input type='text' name="vdef" value="54.5" id="vdeftext" size="5" />
+			  <input type='text' name="idef" value="330" id="ideftext" size="5" />
+			  <input type='text' name="pdef" value="5500" id="pdeftext" size="5" />
+		      <input type='submit' name="submod" value="Set Mode"/>
+		     </td>-->
+		</tr>
+		
+	</table>
+</form>
+<input type="hidden" name="hidden" value=~manadjtype~ id=hiddenbox1 />
+
+<table style="padding-left: 10px;">
+<tr><td><b>Ethernet Controller Firmware Version:</b></td><td>&nbsp;</td><td>~version~</td></tr>
+<tr><td><b>Build Date:</b></td><td>&nbsp;</td><td>~builddate~</td></tr>
+</table>
+
+</div> <!-- status div -->
+
+</div> <!-- content div -->
+
+<script type="text/javascript">
+<!--
+// Parses the xmlResponse from status.xml and updates the status box
+function updateStatus(xmlData) {
+	var mainstat = document.getElementById('display').style.display;
+	var loadstat = document.getElementById('loading').style.display;
+	var ledcolor;
+	var dataresponse;
+
+	// Check if a timeout occurred
+	if(!xmlData)
+	{
+		mainstat = 'none';
+		loadstat = 'inline';
+		return;
+	}
+
+	// Make sure we're displaying the status display
+	mainstat = 'inline';
+	loadstat = 'none';
+
+	// Loop over all the LEDs
+	for(i = 0; i < 5; i++)
+	{
+		dataresponse = getXMLValue(xmlData, 'led' + i);
+		if(dataresponse == '0'){ledcolor = '#ddd';}//off=gray
+		else if(dataresponse == '1'){ledcolor = '#090';}//1=green
+		else if(dataresponse == '2'){ledcolor = '#FC0';}//2=yellow
+		else{ledcolor = '#F00';}//3=red
+		
+		document.getElementById('led' + i).style.color = ledcolor;//(getXMLValue(xmlData, 'led' + i) == '1') ? '#090' : '#ddd';
+	}
+	
+	for(i = 0; i < 4; i++)
+		document.getElementById('analog' +i).innerHTML = getXMLValue(xmlData, 'analog' +i);
+}
+setTimeout("newAJAXCommand('status.xml', updateStatus, true)",50);
+
+</script>
+
+<script type="text/javascript">
+	// Set Manual Adj type radio btns
+	var type = document.getElementById('hiddenbox1').value;
+	if (type.indexOf("volts") !=-1)
+	{
+		document.getElementById('voltsradio').checked = true;
+	}
+	else if (type.indexOf("amps") !=-1)
+	{
+		document.getElementById('ampsradio').checked = true;
+	}
+	else if (type.indexOf("watts") !=-1)
+	{
+		document.getElementById('wattsradio').checked = true;
+	}	
+
+</script>
+
+<div class="spacer">&nbsp;</div>
+<div id="footer">Author: Vince Keiper     Copyright &copy; 2014 Tdi Power, Inc. Version 1.0.10</div>
+
+</div></div></div></div></div>
+
+</body>
+</html>
