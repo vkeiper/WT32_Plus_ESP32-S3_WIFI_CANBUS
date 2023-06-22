@@ -214,17 +214,16 @@ void setup() {
   // start the UI
   ui_init();
   
-  /*
   xTaskCreatePinnedToCore(
     task1,       // Function that should be called
     "Task ICCP", // Name of the task (for debugging)
-    1000,        // Stack size (bytes)
+    4000,        // Stack size (bytes)
     NULL,        // Parameter to pass
     2,           // Task priority
     NULL,        // Task handle
     0            // pin to core #x
   );
-  */
+  
   // 5 seconds from now connect Wifi
   onceTickerWifiStart.once(5, connectWIFI);
 
@@ -247,7 +246,7 @@ void task1(void * parameter){
     Serial.printf("Task 1 Run %d \n",updCnt++);
     
     // Pause the task for 500ms
-    vTaskDelay(500 / portTICK_PERIOD_MS);
+    vTaskDelay(1500 / portTICK_PERIOD_MS);
 
   }
 }
