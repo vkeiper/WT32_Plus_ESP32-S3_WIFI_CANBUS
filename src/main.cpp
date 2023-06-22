@@ -222,7 +222,7 @@ void setup() {
     NULL,        // Parameter to pass
     2,           // Task priority
     NULL,        // Task handle
-    1            // pin to core #x
+    0            // pin to core #x
   );
   */
   // 5 seconds from now connect Wifi

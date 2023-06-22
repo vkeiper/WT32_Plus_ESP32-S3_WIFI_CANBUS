@@ -19,12 +19,11 @@ static void beginWIFITask(void *pvParameters);
 TaskHandle_t ntConnectTaskHandler;
 TaskHandle_t ntWifiServerTaskHandler;
 
-const char* ssidName = "eLink2 WiFi LCD";
-const char* password = "vin31NAT91";
+
 String ssidNameStr = "eLink2 WiFi LCD";
-String passwordStr = "1234";
+String passwordStr = "vin31NAT91";
 const char* remote_host = "192.168.68.1";
-const char* local_host = "vgk3";  // instead of ip address you can hit url http://el2wifilcd.local/xxxxxx where x's are the poage or resource you want to access
+String local_host = "el2wifilcd";  // instead of ip address you can hit url http://el2wifilcd.local/xxxxxx where x's are the poage or resource you want to access
 unsigned long timeout = 10000; // 10sec
 int pingCount = 2; 
 
@@ -225,10 +224,18 @@ void updateFooterPanel(lv_color_t color, String text){
 
 static void beginWIFISoftAPTask(void *pvParameters) {
   bool bConn = false;
+  String ssidNamePlusMac, macPart;
+  macPart = WiFi.macAddress().substring(0,2);
+  ssidNamePlusMac = ssidNameStr + " " + macPart;
 
   //updateFooterPanel(lv_palette_main(LV_PALETTE_TEAL),"Connecting WIFI: ");// + ssidName);
-  
-  WiFi.softAP(ssidName, password);
+  Serial.print("AP MAC Last OCTET: ");
+  Serial.println(macPart);
+
+  Serial.print("AP SSID + MAC: ");
+  Serial.println(ssidNamePlusMac);
+
+  WiFi.softAP(ssidNamePlusMac.c_str(), passwordStr.c_str());
 
   IPAddress IP = WiFi.softAPIP();
   Serial.print("AP IP address: ");

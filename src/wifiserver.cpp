@@ -117,17 +117,23 @@ void listDir(fs::FS &fs, const char * dirname, uint8_t levels){
 
 
 void doWiFiServerTask(void *pvParameters){
-      
+  String lclhostPlusMac;
+  
+  lclhostPlusMac = local_host + WiFi.macAddress().substring(0,2);   
   Serial.println("Wifi Server Task Starting");
   updateFooterPanel(lv_palette_main(LV_PALETTE_GREEN), "WiFi Server Running");        
-  Serial.println(WiFi.localIP());
+  
+  /*use mdns for host name resolution*/
+  Serial.print("mDNS responder request start at ");
+  Serial.print("http://");
+  Serial.print(lclhostPlusMac);
+  Serial.println(".local");
 
-/*use mdns for host name resolution*/
-  if (!MDNS.begin(local_host)) { //http://el2wifilcd.local
+  if (!MDNS.begin(lclhostPlusMac.c_str())) { //http://el2wifilcd.local
     Serial.println("Error setting up MDNS responder!");
     delay(1000);
   }else{
-    Serial.println("mDNS responder started");
+    Serial.print("mDNS responder started");
   }
 
   /* Open File system */
@@ -196,8 +202,9 @@ void doWiFiServerTask(void *pvParameters){
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
       String msgResp;
       msgCnt++;
-      request->send(200, "text/plain", "Hello, world");
-      msgResp = request->client()->remoteIP().toString() +" Cnt " + String(msgCnt);
+      //request->send(200, "text/plain", "Hello, world");
+      //msgResp = request->client()->remoteIP().toString() +" Cnt " + String(msgCnt);
+      request->send(SPIFFS, "/index2.html", "text/html");
       Serial.println("/ from " + msgResp + " Cnt " + String(msgCnt));
       updateFooterPanel(lv_palette_main(LV_PALETTE_GREEN), " Msgs From: " + msgResp); 
   });
