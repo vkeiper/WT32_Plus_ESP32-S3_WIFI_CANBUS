@@ -1,8 +1,9 @@
 #include "canbus.h"
 #include <Ticker.h>
 
-//#include "ui.h"
-//#include "ui_helpers.h"
+
+#include "ui.h"
+#include "lvgl.h"
 
 // Pins used to connect to CAN bus transceiver:
 #define CAN_RX_PIN 10
@@ -13,7 +14,7 @@
 
 static bool canbus_driver_installed = false;
 Ticker syncTickerCanTx;
-
+twai_message_t message;
 
 //External resources
 extern uint8_t b_CANTXFlag;
@@ -32,6 +33,66 @@ void tsk_CANbus(void * parameter){
     // Pause the task for 10ms
     vTaskDelay(5 / portTICK_PERIOD_MS);
   }
+}
+
+void updUiCanRxTbl(twai_message_t *canmsg)
+{
+
+  String cellId,
+        msgId,
+        strData,
+        dbgInfo;
+  String hxData;
+  int iRow=0,
+      iRowCnt=0,
+      iCol=0,
+      iMsgCnt=0;
+  bool bContainsId = false;
+  
+  Serial.println("Update UI CANRX ");
+  /*Pull Data out of can msg, copy to string buff*/
+  strData = "";
+  for (int i = 0; i < canmsg->data_length_code; i++) {
+    hxData = String(canmsg->data[i],HEX);
+    strData.concat(hxData); 
+  }
+ 
+  Serial.println("Update UI CANRX DATA: " + strData);
+
+  /*Roll through CANbus RX table and see if the CANID from this msg is already in the table*/
+  msgId = String(canmsg->identifier,HEX);
+  iRowCnt = lv_table_get_row_cnt(ui_tblCanRx);
+  for (iRow = 0; iRow < iRowCnt; iRow++){
+    // get value of cell in CANID column
+    cellId = lv_table_get_cell_value(ui_tblCanRx, iRow, 0);
+    Serial.println("CANID Table- Row: " + String(iRow,DEC) + " cellID: 0x" + cellId + " CANMSG ID: 0x" + msgId);
+    
+    //If they are equal, update the data bytes from RX frame in the DATA column
+    if (cellId.compareTo(msgId) == 0){
+      bContainsId = true;
+      
+      // update column data
+      lv_table_set_cell_value(ui_tblCanRx, iRow, 1,strData.c_str());// update data row
+      
+      //update msg cnt
+      iMsgCnt = atoi(lv_table_get_cell_value(ui_tblCanRx, iRow, 3));
+      iMsgCnt++;
+      lv_table_set_cell_value(ui_tblCanRx, iRow, 3,String(iMsgCnt,DEC).c_str());// update data row
+
+      Serial.println("CANRX Table Update - Row: " + String(iRow,DEC) + " CANDATA: " + strData + " MSGCNT: " +  String(iMsgCnt,DEC));
+    }
+  }
+  // if no entry was found in the table enter new row with 
+  if(bContainsId == false){
+    
+    lv_table_set_cell_value(ui_tblCanRx, iRowCnt, 0, msgId.c_str());
+    lv_table_set_cell_value(ui_tblCanRx, iRowCnt, 1, strData.c_str());
+    lv_table_set_cell_value(ui_tblCanRx, iRowCnt, 2, "0");
+    lv_table_set_cell_value(ui_tblCanRx, iRowCnt, 3, "1");
+
+    Serial.println("CANRX Table Add Row: " + String(iRowCnt,DEC) + " CANDATA: " + strData );
+  }
+
 }
 
 void setupCANbus() {
@@ -163,21 +224,24 @@ void CanDoMessageTxTestMessage()
   }
 } //if (CanDoMessageTx)
 
-void handle_canbus_rx_message(twai_message_t& message) {
+void handle_canbus_rx_message(twai_message_t * rxmsg) {
   // Process received message
-  if (message.extd) {
+  if (rxmsg->extd) {
     Serial.println("CANbus Message is in Extended Format");
   } else {
     Serial.println("CANbus Message is in Standard Format");
   }
-  Serial.printf("CANbus ID: %x\nByte:", message.identifier);
-  if (!(message.rtr)) {
-    for (int i = 0; i < message.data_length_code; i++) {
-      Serial.printf(" %d = %02x,", i, message.data[i]);
+  Serial.printf("CANbus ID: %x\nByte:", rxmsg->identifier);
+  if (!(rxmsg->rtr)) {
+    for (int i = 0; i < rxmsg->data_length_code; i++) {
+      Serial.printf(" %d = %02x,", i, rxmsg->data[i]);
     }
     Serial.println("");
   }
 
+  updUiCanRxTbl(&message);
+
+ /* 
   if (message.identifier == 0x00000202){
     
 
@@ -214,6 +278,7 @@ void handle_canbus_rx_message(twai_message_t& message) {
     }
 
   }
+  */
 }
 
 void CANbus_RxTask() {
@@ -246,9 +311,11 @@ void CANbus_RxTask() {
   // Check if message is received
   if (alerts_triggered & TWAI_ALERT_RX_DATA) {
     // One or more messages received. Handle all.
-    twai_message_t message;
+    
     while (twai_receive(&message, 0) == ESP_OK) {
-      handle_canbus_rx_message(message);
+      handle_canbus_rx_message(&message);
     }
   }
 }
+
+
